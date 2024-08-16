@@ -2,8 +2,7 @@
 
 
 ## Contributing to the Project
-
-We appreciate your interest in contributing to this project! Follow these simple steps to submit your first Pull Request (PR):
+Follow these simple steps to submit your first Pull Request (PR):
 
 ### 1. Fork the Repository
 1. Go to the repository's page.

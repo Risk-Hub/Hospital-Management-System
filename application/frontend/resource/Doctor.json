@@ -1,0 +1,59 @@
+[
+    {
+        "id": "doctor1",
+        "name": "Dr. Alice Brown",
+        "password": "doctorpass123",
+        "available_appointment_slots": [
+            {
+                "start": "09:00",
+                "end": "11:00"
+            },
+            {
+                "start": "12:00",
+                "end": "13:00"
+            },
+            {
+                "start": "14:00",
+                "end": "16:00"
+            }
+        ]
+    },
+    {
+        "id": "doctor2",
+        "name": "Dr. Bob White",
+        "password": "doctorpass456",
+        "available_appointment_slots": [
+            {
+                "start": "09:00",
+                "end": "11:00"
+            },
+            {
+                "start": "12:00",
+                "end": "13:00"
+            },
+            {
+                "start": "14:00",
+                "end": "16:00"
+            }
+        ]
+    },
+    {
+        "id": "doctor3",
+        "name": "Dr. Carol Green",
+        "password": "doctorpass789",
+        "available_appointment_slots": [
+            {
+                "start": "09:00",
+                "end": "11:00"
+            },
+            {
+                "start": "12:00",
+                "end": "13:00"
+            },
+            {
+                "start": "14:00",
+                "end": "16:00"
+            }
+        ]
+    }
+]

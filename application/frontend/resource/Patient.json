@@ -1,0 +1,53 @@
+[
+    {
+        "id": "patient1",
+        "name": "Emily Clark",
+        "appointment_date": "20/08/2024",
+        "appointment_slot": "09:00 - 11:00",
+        "disease_name": "Flu",
+        "recommended_tests": [
+            "Complete Blood Count",
+            "X-Ray",
+            "CT Scan"
+        ],
+        "recommended_medicines": [
+            "Paracetamol",
+            "Ibuprofen",
+            "Vitamin C"
+        ]
+    },
+    {
+        "id": "patient2",
+        "name": "Michael Johnson",
+        "appointment_date": "21/08/2024",
+        "appointment_slot": "12:00 - 13:00",
+        "disease_name": "Back Pain",
+        "recommended_tests": [
+            "MRI",
+            "Ultrasound",
+            "ECG"
+        ],
+        "recommended_medicines": [
+            "Aspirin",
+            "Cyclobenzaprine",
+            "Naproxen"
+        ]
+    },
+    {
+        "id": "patient3",
+        "name": "Sarah Lee",
+        "appointment_date": "22/08/2024",
+        "appointment_slot": "14:00 - 16:00",
+        "disease_name": "Headache",
+        "recommended_tests": [
+            "Blood Pressure Test",
+            "Electrolyte Panel",
+            "Chest X-Ray"
+        ],
+        "recommended_medicines": [
+            "Amoxicillin",
+            "Cetirizine",
+            "Loratadine"
+        ]
+    }
+]

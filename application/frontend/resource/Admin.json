@@ -1,0 +1,17 @@
+[
+    {
+        "id": "admin1",
+        "name": "Sarah Wilson",
+        "password": "adminpass123"
+    },
+    {
+        "id": "admin2",
+        "name": "James Taylor",
+        "password": "adminpass456"
+    },
+    {
+        "id": "admin3",
+        "name": "Linda Davis",
+        "password": "adminpass789"
+    }
+]

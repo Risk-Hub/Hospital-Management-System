@@ -1,10 +1,34 @@
 [
     {
         "id":"doc01",
-        "name":"Example Doctor01"
+        "name":"Example Doctor01",
+        "appointment":[
+            {
+                "date":"2024-08-17",
+                "timeslot":["09:00","11:00","13:00","14:00"],
+                "isAvailable":[true,true,true,true]
+            },
+            {
+                "date":"2024-08-17",
+                "timeslot":["09:00","11:00","13:00","14:00"],
+                "isAvailable":[true,true,true,true]
+            }
+        ]
     },
     {
         "id":"doc02",
-        "name":"Example Doctor02"
+        "name":"Example Doctor02",
+        "appointment":[
+            {
+                "date":"2024-08-17",
+                "timeslot":["09:00","11:00","13:00","14:00"],
+                "isAvailable":[true,true,true,true]
+            },
+            {
+                "date":"2024-08-17",
+                "timeslot":["09:00","11:00","13:00","14:00"],
+                "isAvailable":[true,true,true,true]
+            }
+        ]
     }
 ]

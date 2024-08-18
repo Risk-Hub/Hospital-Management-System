@@ -14,31 +14,33 @@ Follow these simple steps to submit your first Pull Request (PR):
    git clone https://github.com/your-username/repo-name.git
 
 2. Navigate to the project directory. 
-cd repo-name
+    ```bash
+    cd repo-name
 
-3. Create a New Branch
-git checkout -b your-branch-name
+### 3. Create a New Branch
+    ```bash
+    git checkout -b your-branch-name
 
-4. Make Your Changes
+### 4. Make Your Changes
 Make your changes to the codebase, such as adding a new feature, fixing a bug, or updating documentation.
 
-5. Commit Your Changes
+### 5. Commit Your Changes
     1. Stage your changes.
         git add .
     2. Commit your changes with a meaningful message.
         git commit -m "Describe your changes"
 
-6. Push to GitHub
+### 6. Push to GitHub
 Push your changes to your forked repository.
 git push origin your-branch-name
 
 
-7. Create a Pull Request
+### 7. Create a Pull Request
 Go to the original repository's page on GitHub.
 Click on the Pull Requests tab.
 Click on the New Pull Request button.
 Select the branch with your changes and create a pull request.
 Provide a brief description of the changes you made and submit your pull request.
-8. Review and Merge
+### 8. Review and Merge
 Wait for the maintainers to review your pull request.
 Once approved, your changes will be merged into the main branch!

@@ -24,8 +24,9 @@ function countOfPatients() {
 //This function will auto-populate table with the data present in LocalStorage
 function autoPopulateTableData(){
     let patients = localStorage.getItem("patientList");
-    if(patients == null){
+    if(patients == null || patients == "[]"){
         patientsObject = [];
+        tableBody.innerHTML = ""; 
         document.getElementById("tableDiv").innerHTML += `
             <center>
                 <img src="../resource/img/patient.svg" alt="" style="height: 6em; margin-top: 2em;"><br><br>
@@ -44,9 +45,9 @@ function autoPopulateTableData(){
                     <th scope="row">${element.id}</th>
                     <td>${element.name}</td>
                     <td>
-                        <button type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#editPatientModal"><i class="lni lni-pencil"></i> Edit</button>
-                        <button type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#viewPatientModal"><i class="lni lni-eye"></i> View</button>
-                        <button type="button" class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#deletePatientModal"><i class="lni lni-trash-can"></i> Remove</button>
+                        <button type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#editPatientModal" onclick="editPatientDetails('${element.id}')"><i class="lni lni-pencil"></i> Edit</button>
+                        <button type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#viewPatientModal" onclick="viewPatientDetails('${element.id}')"><i class="lni lni-eye"></i> View</button>
+                        <button type="button" class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#deletePatientModal" onclick="confirmDelete('${element.id}')"><i class="lni lni-trash-can"></i> Remove</button>
                     </td>
                 </tr>
             `;
@@ -94,12 +95,112 @@ function addNewPatientToList() {
     autoPopulateTableData();        //Auto-populate function's logic need to be revised, displaying incorrect values on table UI.
 }
 
-function editPatient(){
-    //Need to be worked upon
+
+
+
+
+//This function sets the selected patient ID to be edited in a global variable.
+let patientIdToBeEdited = null;
+function editPatientDetails(id){
+    document.getElementById("floatingInputDisabled").value = "";
+    document.getElementById("patientName2").value = "";
+    document.getElementById("patientContactNumber2").value = "";
+    document.getElementById("patientAge2").value = "";
+    document.getElementById("patientGender2").value = "";
+    let patients = JSON.parse(localStorage.getItem("patientList"));
+    let selectedPatient = patients.find(patient => patient.id === id);
+    if(selectedPatient){
+        patientIdToBeEdited = id;
+        document.getElementById("floatingInputDisabled").value = selectedPatient.id;
+        document.getElementById("patientName2").value = selectedPatient.name;
+        document.getElementById("patientContactNumber2").value = selectedPatient.contact;
+        document.getElementById("patientAge2").value = selectedPatient.age;
+        document.getElementById("patientGender2").value = selectedPatient.gender;
+    }
+    // patientIdToBeEdited = null;
 }
 
-function deletePatient(){
-    //Need to be worked upon
+
+//This function finally saves the modified value
+function saveEditedPatient(){
+    let patients = JSON.parse(localStorage.getItem("patientList"));
+    patients = patients.map(patient => {
+        if (patient.id === patientIdToBeEdited) {
+            return {
+                ...patient,
+                name: document.getElementById("patientName2").value,
+                contact: document.getElementById("patientContactNumber2").value,
+                age: document.getElementById("patientAge2").value,
+                gender: document.getElementById("patientGender2").value
+            };
+        }
+        return patient;
+    });
+    localStorage.setItem("patientList", JSON.stringify(patients));
+    autoPopulateTableData();
+}
+
+
+
+
+
+
+//This function displays the details of a patient on Modal.
+function viewPatientDetails(id){
+    let patientsObject = JSON.parse(localStorage.getItem("patientList"));
+    let selectedPatient = patientsObject.find(patient => patient.id === id);
+    if(selectedPatient){
+        document.getElementById("exampleModalLabel3").innerText = `Details of Patient: ${selectedPatient.id}`;
+        document.querySelector("#viewPatientModal .modal-body").innerHTML = `
+            <div class="form-floating mb-3">
+                <input type="email" class="form-control" id="floatingInputValue" placeholder="" value="${selectedPatient.id}" disabled>
+                <label for="floatingInputValue">Patient ID</label>
+            </div>
+            <div class="form-floating mb-3">
+                <input type="email" class="form-control" id="floatingInputValue" placeholder="" value="${selectedPatient.name}" disabled>
+                <label for="floatingInputValue">Name</label>
+            </div>
+            <div class="form-floating mb-3">
+                <input type="text" class="form-control" id="floatingInputValue" placeholder="" value="${selectedPatient.contact}" disabled>
+                <label for="floatingInputValue">Contact Number</label>
+            </div>
+            <div class="form-floating mb-3">
+                <input type="text" class="form-control" id="floatingInputValue" placeholder="" value="${selectedPatient.age}" disabled>
+                <label for="floatingInputValue">Age(in years)</label>
+            </div>
+            <div class="form-floating mb-3">
+                <input type="text" class="form-control" id="floatingInputValue" placeholder="" value="${selectedPatient.gender.charAt(0).toUpperCase() + selectedPatient.gender.substring(1)}" disabled>
+                <label for="floatingInputValue">Gender</label>
+            </div>
+        `;
+    }
+}
+
+
+
+
+
+
+//This function sets the selected patient ID to be deleted in a global variable.
+let patientIdToBeDeleted = null;
+function confirmDelete(id) {
+    console.log("hello");
+    patientIdToBeDeleted = id;
+}
+
+//This function deletes a patient's record by the 'id' selected by the patient
+function deletePatientRecord(){
+    if(patientIdToBeDeleted !== null){
+        // console.log("ok");
+        let patients = localStorage.getItem("patientList");
+        patientsObject = JSON.parse(patients);
+        const index = patientsObject.findIndex(patient => patient.id === patientIdToBeDeleted);
+        patientsObject.splice(index,1);
+        localStorage.setItem("patientList",JSON.stringify(patientsObject));
+    }
+    countOfPatients();
+    autoPopulateTableData();
+    patientIdToBeDeleted = null;
 }
 
 

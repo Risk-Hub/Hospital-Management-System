@@ -27,8 +27,9 @@ function countOfDoctors() {
 function autoPopulateTableData(){
     let doctors = localStorage.getItem("doctorList");
     console.log(doctors);
-    if(doctors == null){
+    if(doctors == null || doctors == "[]"){
         doctorsObject = [];
+        tableBody.innerHTML = "";    
         document.getElementById("tableDiv").innerHTML += `
             <center>
                 <img src="../resource/img/EmptyFile.svg" alt="" style="height: 6em; margin-top: 2em;"><br><br>
@@ -47,9 +48,9 @@ function autoPopulateTableData(){
                     <th scope="row">${element.id}</th>
                     <td>${element.name}</td>
                     <td>
-                        <button type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#editDoctorModal"><i class="lni lni-pencil"></i> Edit</button>
-                        <button type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#viewDoctorModal"><i class="lni lni-eye"></i> View</button>
-                        <button type="button" class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#deleteDoctorModal"><i class="lni lni-trash-can"></i> Remove</button>
+                        <button type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#editDoctorModal" onclick="editDoctorDetails('${element.id}')"><i class="lni lni-pencil"></i> Edit</button>
+                        <button type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#viewDoctorModal" onclick="viewDoctorDetails('${element.id}')"><i class="lni lni-eye"></i> View</button>
+                        <button type="button" class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#deleteDoctorModal" onclick="confirmDelete('${element.id}')"><i class="lni lni-trash-can"></i> Remove</button>
                     </td>
                 </tr>
             `;
@@ -104,45 +105,99 @@ function addNewDoctorToList() {
     console.log(doctorsObject);
     localStorage.setItem("doctorList",JSON.stringify(doctorsObject));
     autoPopulateTableData();        //Auto-populate function's logic need to be revised, displaying incorrect values on table UI.
+    countOfDoctors();
 }
 
-function editDoctor(){
-    //Need to be worked upon
-}
 
-function viewDoctor(){
-    //Need to be worked upon
-}
 
-//This function deletes a doctor's record by the 'id' provided by the user
-//Need to be worked upon
-function deleteDoctorRecord(id){
-    let doctors = localStorage.getItem("doctorList");
-    if(doctors == null){
-        doctorsObject = [];
+//This function displays the details of a Doctor on Modal.
+function viewDoctorDetails(id){
+    let doctorsObject = JSON.parse(localStorage.getItem("doctorList"));
+    let selectedDoctor = doctorsObject.find(doctor => doctor.id === id);
+    if(selectedDoctor){
+        document.getElementById("exampleModalLabel3").innerText = `Details of Doctor: ${selectedDoctor.id}`;
+        document.querySelector("#viewDoctorModal .modal-body").innerHTML = `
+            <div class="form-floating mb-3">
+                <input type="email" class="form-control" id="floatingInputValue" placeholder="" value="${selectedDoctor.id}" disabled>
+                <label for="floatingInputValue">Doctor ID</label>
+            </div>
+            <div class="form-floating mb-3">
+                <input type="email" class="form-control" id="floatingInputValue" placeholder="" value="${selectedDoctor.name}" disabled>
+                <label for="floatingInputValue">Name</label>
+            </div>
+            <div class="form-floating mb-3">
+                <input type="email" class="form-control" id="floatingInputValue" placeholder="" value="${selectedDoctor.email}" disabled>
+                <label for="floatingInputValue">Email</label>
+            </div>
+            <div class="form-floating mb-3">
+                <input type="email" class="form-control" id="floatingInputValue" placeholder="" value="${selectedDoctor.contact}" disabled>
+                <label for="floatingInputValue">Contact Number</label>
+            </div>
+        `;
     }
-    else{
+}
+
+
+
+//This function sets the selected doctor ID to be edited in a global variable.
+let doctorIdToBeEdited = null;
+function editDoctorDetails(id){
+    document.getElementById("floatingInputDisabled").value = "";
+    document.getElementById("doctorName2").value = "";
+    document.getElementById("doctorEmail2").value = "";
+    document.getElementById("doctorContactNumber2").value = "";
+    let doctors = JSON.parse(localStorage.getItem("doctorList"));
+    let selectedDoctor = doctors.find(doctor => doctor.id === id);
+    if(selectedDoctor){
+        doctorIdToBeEdited = id;
+        document.getElementById("floatingInputDisabled").value = selectedDoctor.id;
+        document.getElementById("doctorName2").value = selectedDoctor.name;
+        document.getElementById("doctorEmail2").value = selectedDoctor.email;
+        document.getElementById("doctorContactNumber2").value = selectedDoctor.contact;
+    }
+    // doctorIdToBeEdited = null;
+}
+
+
+//This function finally saves the modified value
+function saveEditedDoctor(){
+    let doctors = JSON.parse(localStorage.getItem("doctorList"));
+    doctors = doctors.map(doctor => {
+        if (doctor.id === doctorIdToBeEdited) {
+            return {
+                ...doctor,
+                name: document.getElementById("doctorName2").value,
+                email: document.getElementById("doctorEmail2").value,
+                contact: document.getElementById("doctorContactNumber2").value
+            };
+        }
+        return doctor;
+    });
+    localStorage.setItem("doctorList", JSON.stringify(doctors));
+    autoPopulateTableData();
+}
+
+
+//This function sets the selected Doctor ID to be deleted in a global variable.
+let doctorIdToBeDeleted = null;
+function confirmDelete(id) {
+    console.log("hello");
+    doctorIdToBeDeleted = id;
+}
+
+//This function deletes a doctor's record by the 'id' selected by the user
+function deleteDoctorRecord(){
+    if(doctorIdToBeDeleted !== null){
+        // console.log("ok");
+        let doctors = localStorage.getItem("doctorList");
         doctorsObject = JSON.parse(doctors);
-    }
-
-    console.log("Before deletetion: ");         //Hit n Trial
-    console.log(doctorsObject);
-    const index = doctorsObject.findIndex(doctor => doctor.id === id);
-    if(index !== -1){
+        const index = doctorsObject.findIndex(doctor => doctor.id === doctorIdToBeDeleted);
         doctorsObject.splice(index,1);
+        localStorage.setItem("doctorList",JSON.stringify(doctorsObject));
+        autoPopulateTableData();
+        countOfDoctors();
     }
-    else{
-        console.log('Doctor not found');
-        
-    }
-
-    // if(doctorsObject.length == 0){
-    //     localStorage.removeItem("doctorList");
-    // }
-    // else{
-    //     localStorage.setItem("doctorList",JSON.stringify(doctorsObject));
-    // }
-    console.log("After deletetion: ");    //Hit n Trial
+    doctorIdToBeDeleted = null;
 }
 
 

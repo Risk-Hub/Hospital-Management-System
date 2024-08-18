@@ -173,5 +173,11 @@ a.sidebar-link:hover {
     box-shadow: 0px 0px 3px 0px #0e2238;
 }
 
+.required-field::after {
+    content: "*";
+    color: red;
+    margin-left:2px
+  }
+
 
 @media (min-width: 768px) {}

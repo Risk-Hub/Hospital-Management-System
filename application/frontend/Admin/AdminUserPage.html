@@ -54,64 +54,53 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h1 class="modal-title fs-5" id="staticBackdropLabel">Edit User</h1>
-                    <!-- <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> -->
                 </div>
                 <div class="modal-body">
                     <form action="#">
-                        <!-- <div class="input-group mb-3">
-                            <span class="input-group-text" id="basic-addon1">@</span>
-                            <input type="text" class="form-control" placeholder="Doctor ID" aria-label="Username" aria-describedby="basic-addon1" id="doctorId">
-                        </div> -->
                         <div class="input-group mb-3">
                             <span class="input-group-text">@</span>
                             <div class="form-floating">
-                                <input type="text" class="form-control" id="floatingInputDisbaled" placeholder="User's ID" value="user01" disabled>
+                                <input type="text" class="form-control" id="floatingInputDisabled" placeholder="User's ID" value="user01" disabled>
                                 <label for="floatingInputDisabled">User's ID</label>
                             </div>
                         </div>
                         <div class="input-group">
-                            <!-- <span class="input-group-text">Doctor's Name</span> -->
-                            <input type="text" aria-label="Name" class="form-control" placeholder="User's Name" id="userName" value="Example User">
+                            <input type="text" aria-label="Name" class="form-control" placeholder="User's Name" id="userName2" value="Example User">
                         </div>
                         <div class="input-group mb-3 my-3">
-                            <input type="text" class="form-control" placeholder="User's Username" aria-label="Recipient's username" aria-describedby="basic-addon2" id="userEmail" value="user01" disabled>
+                            <input type="text" class="form-control" placeholder="User's Username" aria-label="Recipient's username" aria-describedby="basic-addon2" id="userEmail2" value="user01" disabled>
                             <span class="input-group-text" id="basic-addon2">@hms.com</span>
                         </div>
                         <div class="input-group mb-3">
                             <span class="input-group-text" id="basic-addon2">+91</span>
-                            <input type="number" class="form-control" placeholder="Contact Number" aria-label="Username" aria-describedby="basic-addon2" id="userContactNumber">
+                            <input type="number" class="form-control" placeholder="Contact Number" aria-label="Username" aria-describedby="basic-addon2" id="userContactNumber2">
                         </div>
                     </form>
-                    <!-- This needs to be revised. Currently it is not functional -->
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" onclick="addNewUserToList()" data-bs-dismiss="modal">Save</button>
+                    <button type="button" class="btn btn-primary" onclick="saveEditedUser()" data-bs-dismiss="modal">Save</button>
                     <button type="reset" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Dismissible Modal: functionality(View a doctor) -->
+    <!-- Dismissible Modal: functionality(View a user) -->
     <div class="modal fade" id="viewUserModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="exampleModalLabel">Details of Doctor: Doc</h1> <!--Need to replaced with doctor id-->
+                    <h1 class="modal-title fs-5" id="exampleModalLabel3"></h1> <!--Need to replaced with doctor id-->
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     
                 </div>
-                <!-- <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
-                </div> -->
             </div>
         </div>
     </div>
 
-    <!-- Dismissible Modal: functionality(Delete a doctor) -->
+    <!-- Dismissible Modal: functionality(Delete a user) -->
     <div class="modal fade" id="deleteUserModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -124,7 +113,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
-                    <button type="button" class="btn btn-danger">Yes</button>
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal" onclick="deleteUserRecord()">Yes</button>
                 </div>
             </div>
         </div>
@@ -153,44 +142,6 @@
                         <span>Doctors</span>
                     </a>
                 </li>
-                <!-- <li class="sidebar-item">
-                    <a href="#" class="sidebar-link collapsed has-dropdown" data-bs-toggle="collapse"
-                        data-bs-target="#auth" aria-expanded="false" aria-controls="auth">
-                        <i class="lni lni-first-aid"></i>
-                        <span>Doctors</span>
-                    </a>
-                    <ul id="auth" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
-                        <li class="sidebar-item">
-                            <a href="#" class="sidebar-link">Add Doctor</a>
-                        </li>
-                        <li class="sidebar-item">
-                            <a href="#" class="sidebar-link">Register</a>
-                        </li>
-                    </ul>
-                </li> -->
-                <!-- <li class="sidebar-item">
-                    <a href="#" class="sidebar-link collapsed has-dropdown" data-bs-toggle="collapse"
-                        data-bs-target="#multi" aria-expanded="false" aria-controls="multi">
-                        <i class="lni lni-layout"></i>
-                        <span>Multi Level</span>
-                    </a>
-                    <ul id="multi" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
-                        <li class="sidebar-item">
-                            <a href="#" class="sidebar-link collapsed" data-bs-toggle="collapse"
-                                data-bs-target="#multi-two" aria-expanded="false" aria-controls="multi-two">
-                                Two Links
-                            </a>
-                            <ul id="multi-two" class="sidebar-dropdown list-unstyled collapse">
-                                <li class="sidebar-item">
-                                    <a href="#" class="sidebar-link">Link 1</a>
-                                </li>
-                                <li class="sidebar-item">
-                                    <a href="#" class="sidebar-link">Link 2</a>
-                                </li>
-                            </ul>
-                        </li>
-                    </ul>
-                </li> -->
                 <li class="sidebar-item">
                     <a href="#" class="sidebar-link">
                         <i class="lni lni-users"></i>
@@ -219,18 +170,12 @@
         </aside>
         <div class="main">
             <nav class="navbar navbar-expand px-4 py-3">
-                <!-- <form action="#" class="d-none d-sm-inline-block">
-
-                </form> -->
                 <div class="navbar-collapse collapse">
                     <ul class="navbar-nav ms-auto">
                         <li class="nav-item dropdown">
                             <a href="#" data-bs-toggle="dropdown" class="nav-icon pe-md-0">
                                 <img src="../resource/img/account.png" class="avatar img-fluid" alt="">
                             </a>
-                            <!-- <div class="dropdown-menu dropdown-menu-end rounded">
-
-                            </div> -->
                         </li>
                     </ul>
                 </div>

@@ -1,0 +1,38 @@
+[
+    {
+        "id": 1,
+        "name": "Emily Clark",
+        "appointment_date": "20",
+        "appointment_slot": "09",
+        "disease_name": "FLU",
+        "recommended_medicines": [
+            "Paracetamol",
+            "Ibuprofen",
+            "Vitamin C"
+        ]
+    },
+    {
+        "id": 2,
+        "name": "Michael Johnson",
+        "appointment_date": "21",
+        "appointment_slot": "12",
+        "disease_name": "BACKPAIN",
+        "recommended_medicines": [
+            "Aspirin",
+            "Cyclobenzaprine",
+            "Naproxen"
+        ]
+    },
+    {
+        "id": 3,
+        "name": "Sarah Lee",
+        "appointment_date": "22",
+        "appointment_slot": "14",
+        "disease_name": "HEADACHE",
+        "recommended_medicines": [
+            "Amoxicillin",
+            "Cetirizine",
+            "Loratadine"
+        ]
+    }
+]

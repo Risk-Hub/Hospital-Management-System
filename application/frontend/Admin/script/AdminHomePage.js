@@ -5,7 +5,7 @@ hamBurger.addEventListener("click", function () {
   document.querySelector("#sidebar").classList.toggle("expand");
 });
 
-let dummyDoctorData = [
+let doctorsObject = [
     {
         "id":"doc01",
         "name":"Example Doctor01",
@@ -14,13 +14,27 @@ let dummyDoctorData = [
         "appointment":[
             {
                 "date":"2024-08-17",
-                "timeslot":["09:00","11:00","13:00","14:00"],
-                "isAvailable":[true,true,true,true]
+                "timeslot":[
+                    {"time":"09:00-11:00", "isAvailable": true, "patientId": null},
+                    {"time":"11:00-13:00", "isAvailable": false, "patientId": "pat01"},
+                    {"time":"14:00-16:00", "isAvailable": false, "patientId": "pat02"}
+                ]
             },
             {
                 "date":"2024-08-18",
-                "timeslot":["09:00","11:00","13:00","14:00"],
-                "isAvailable":[true,true,true,true]
+                "timeslot":[
+                    {"time":"09:00-11:00", "isAvailable": false, "patientId": "pat03"},
+                    {"time":"11:00-13:00", "isAvailable": true, "patientId": null},
+                    {"time":"14:00-16:00", "isAvailable": false, "patientId": "pat04"}
+                ]
+            },
+            {
+                "date":"2024-08-19",
+                "timeslot":[
+                    {"time":"09:00-11:00", "isAvailable": true, "patientId": null},
+                    {"time":"11:00-13:00", "isAvailable": true, "patientId": null},
+                    {"time":"14:00-16:00", "isAvailable": true, "patientId": null}
+                ]
             }
         ]
     },
@@ -32,13 +46,27 @@ let dummyDoctorData = [
         "appointment":[
             {
                 "date":"2024-08-17",
-                "timeslot":["09:00","11:00","13:00","14:00"],
-                "isAvailable":[true,true,true,true]
+                "timeslot":[
+                    {"time":"09:00-11:00", "isAvailable": true, "patientId": null},
+                    {"time":"11:00-13:00", "isAvailable": false, "patientId": "pat05"},
+                    {"time":"14:00-16:00", "isAvailable": true, "patientId": null}
+                ]
             },
             {
                 "date":"2024-08-18",
-                "timeslot":["09:00","11:00","13:00","14:00"],
-                "isAvailable":[true,true,true,true]
+                "timeslot":[
+                    {"time":"09:00-11:00", "isAvailable": true, "patientId": null},
+                    {"time":"11:00-13:00", "isAvailable": false, "patientId": "pat06"},
+                    {"time":"14:00-16:00", "isAvailable": false, "patientId": "pat07"}
+                ]
+            },
+            {
+                "date":"2024-08-19",
+                "timeslot":[
+                    {"time":"09:00-11:00", "isAvailable": true, "patientId": null},
+                    {"time":"11:00-13:00", "isAvailable": true, "patientId": null},
+                    {"time":"14:00-16:00", "isAvailable": true, "patientId": null}
+                ]
             }
         ]
     }
@@ -102,7 +130,7 @@ let dummyPatientData = [
 //This method sets initial data from Doctor.json file to LocalStorage
 function setInitialDataToLocalStorage() {
     localStorage.clear();                           //This needs to be deleted. Made for testing purpose.
-    localStorage.setItem("doctorList",JSON.stringify(dummyDoctorData));
+    localStorage.setItem("doctorList",JSON.stringify(doctorsObject));
     localStorage.setItem("userList",JSON.stringify(dummyUserData));
     localStorage.setItem("patientList",JSON.stringify(dummyPatientData));
 }
@@ -154,12 +182,101 @@ function countOfPatients() {
 }
 
 
+function countOfAppointments(){
+    const targetDates = ["2024-08-17", "2024-08-18"];
+    let doctors = localStorage.getItem("doctorList");
+    let patients = localStorage.getItem("patientList");
+    let count = 0;
+    if(patients == null){
+        patientsObject = [];
+    }
+    if(doctors == null){
+        doctorsObject = [];
+    }
+    else{
+        doctorsObject = JSON.parse(doctors);
+        doctorsObject.forEach(doctor => {
+            doctor.appointment.forEach(appointment => {
+                if(targetDates.includes(appointment.date)){
+                    appointment.timeslot.forEach(slot => {
+                        if(!slot.isAvailable && slot.patientId){
+                            let patient = patientsObject.find(p => p.id === slot.patientId);
+                            if(patient){
+                                count++;
+                            }
+                        }
+                    });
+                }
+            });
+        });
+    }
+    document.getElementsByTagName('h4')[6].innerText = `${count}`;
+    console.log(count);
+    
+}
+
+
+
+function showAppointmentsList(){
+    const targetDates = ["2024-08-17", "2024-08-18"];
+    let appointmentsArr = [];
+    let doctors = localStorage.getItem("doctorList");
+    let patients = localStorage.getItem("patientList");
+    if(patients == null){
+        patientsObject = [];
+    }
+    if(doctors == null){
+        doctorsObject = [];
+    }
+    else{
+        doctorsObject = JSON.parse(doctors);
+        doctorsObject.forEach(doctor => {
+            doctor.appointment.forEach(appointment => {
+                if(targetDates.includes(appointment.date)){
+                    appointment.timeslot.forEach(slot => {
+                        if (!slot.isAvailable && slot.patientId) {
+                            let patient = patientsObject.find(p => p.id === slot.patientId);
+                            if(patient){
+                                appointmentsArr.push({
+                                    date: appointment.date,
+                                    time: slot.time,
+                                    doctorId: doctor.id,
+                                    doctorName: doctor.name,
+                                    patientId: patient.id,
+                                    patientName: patient.name
+                                });
+                            }
+                        }
+                    });
+                }
+            });
+        });
+    }
+
+    let tableBody = document.getElementById("tableBody");
+    tableBody.innerHTML = "";
+    appointmentsArr.forEach(appointment => {
+        tableBody.innerHTML += `
+            <td>${appointment.date}</td>
+            <td>${appointment.time}</td>
+            <td>${appointment.doctorId}</td>
+            <td>${appointment.doctorName}</td>
+            <td>${appointment.patientId}</td>
+            <td>${appointment.patientName}</td>
+        `;
+    });
+}
+
+
+
 
 
 setInitialDataToLocalStorage();
 countOfDoctors();
 countOfUsers();
 countOfPatients();
+countOfAppointments();
+showAppointmentsList();
 
 
-//Todo: appointments :)
+// Todo: appointments :)

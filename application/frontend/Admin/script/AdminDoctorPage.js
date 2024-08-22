@@ -109,11 +109,39 @@ function addNewDoctorToList() {
 }
 
 
+//This function make addition/deletion to the doctor's list present in LocalStorage as according when a patient profile gets added/deleted
+function updateAppointmentsInLocalStorage() {
+    let patientsObject = JSON.parse(localStorage.getItem("patientList"));
+
+    // Get the list of valid patient IDs
+    const validPatientIds = patientsObject.map(patient => patient.id);
+
+    // Iterate over the doctors and their appointments
+    doctorsObject.forEach(doctor => {
+        doctor.appointment.forEach(appointment => {
+            appointment.timeslot.forEach(slot => {
+                // Check if the patient ID is not in the validPatientIds list
+                if (slot.patientId && !validPatientIds.includes(slot.patientId)) {
+                    // Update the slot to be available and remove the patientId
+                    slot.isAvailable = true;
+                    slot.patientId = null;
+                }
+            });
+        });
+    });
+
+    // Save the updated doctorsObject to LocalStorage
+    localStorage.setItem('doctorList', JSON.stringify(doctorsObject));
+}
+
+
 
 //This function displays the details of a Doctor on Modal.
 function viewDoctorDetails(id){
     let doctorsObject = JSON.parse(localStorage.getItem("doctorList"));
     let selectedDoctor = doctorsObject.find(doctor => doctor.id === id);
+    let patientsObject = JSON.parse(localStorage.getItem("patientList"));
+
     if(selectedDoctor){
         document.getElementById("exampleModalLabel3").innerText = `Details of Doctor: ${selectedDoctor.id}`;
         document.querySelector("#viewDoctorModal .modal-body").innerHTML = `
@@ -135,6 +163,53 @@ function viewDoctorDetails(id){
             </div>
         `;
     }
+
+    let tableHtml = `
+    <div class="col-12" id="tableDiv">
+        <table class="table table-striped table-light">
+            <thead>
+                <tr class="highlight">
+                    <th scope="col">Date</th>
+                    <th scope="col">Time Slot</th>
+                    <th scope="col">Availability(Yes/No)</th>
+                    <th scope="col">Patient ID</th>
+                    <th scope="col">Patient Name</th>
+                </tr>
+            </thead>
+            <tbody class="table-group-divider" id="tableBody">`;
+
+    doctorsObject.filter(doc => doc.id === id).forEach(doctor => {
+        doctor.appointment.forEach(appointment => {
+            appointment.timeslot.forEach(slot => {
+                if(slot.isAvailable){
+                    tableHtml += `
+                        <tr>
+                            <td scope="row">${appointment.date}</td>
+                            <td>${slot.time}</td>
+                            <td colspan="3">Yes</td>
+                        </tr>`;
+                }
+                else{
+                    let patient = patientsObject.find(p => p.id === slot.patientId);
+                    tableHtml += `
+                        <tr>
+                            <td scope="row">${appointment.date}</td>
+                            <td>${slot.time}</td>
+                            <td>No</td>
+                            <td>${patient.id}</td>
+                            <td>${patient.name}</td>
+                        </tr>`;
+                }
+            });
+        });
+    });
+
+    tableHtml += `
+            </tbody>
+        </table>
+    </div>`;
+
+    document.querySelector("#viewDoctorModal .modal-body").innerHTML += tableHtml;
 }
 
 
@@ -204,3 +279,4 @@ function deleteDoctorRecord(){
 
 countOfDoctors();
 autoPopulateTableData();
+updateAppointmentsInLocalStorage();

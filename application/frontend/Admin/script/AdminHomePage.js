@@ -183,7 +183,7 @@ function countOfPatients() {
 
 
 function countOfAppointments(){
-    const targetDates = ["2024-08-17", "2024-08-18"];
+    const targetDates = ["2024-08-17", "2024-08-18", "2024-08-19"];
     let doctors = localStorage.getItem("doctorList");
     let patients = localStorage.getItem("patientList");
     let count = 0;
@@ -216,9 +216,33 @@ function countOfAppointments(){
 }
 
 
+function updateAppointmentsInLocalStorage() {
+    let patientsObject = JSON.parse(localStorage.getItem("patientList"));
+
+    // Get the list of valid patient IDs
+    const validPatientIds = patientsObject.map(patient => patient.id);
+
+    // Iterate over the doctors and their appointments
+    doctorsObject.forEach(doctor => {
+        doctor.appointment.forEach(appointment => {
+            appointment.timeslot.forEach(slot => {
+                // Check if the patient ID is not in the validPatientIds list
+                if (slot.patientId && !validPatientIds.includes(slot.patientId)) {
+                    // Update the slot to be available and remove the patientId
+                    slot.isAvailable = true;
+                    slot.patientId = null;
+                }
+            });
+        });
+    });
+
+    // Save the updated doctorsObject to LocalStorage
+    localStorage.setItem('doctorList', JSON.stringify(doctorsObject));
+}
+
 
 function showAppointmentsList(){
-    const targetDates = ["2024-08-17", "2024-08-18"];
+    const targetDates = ["2024-08-17", "2024-08-18", "2024-08-19"];
     let appointmentsArr = [];
     let doctors = localStorage.getItem("doctorList");
     let patients = localStorage.getItem("patientList");
@@ -272,6 +296,7 @@ function showAppointmentsList(){
 
 
 setInitialDataToLocalStorage();
+updateAppointmentsInLocalStorage();
 countOfDoctors();
 countOfUsers();
 countOfPatients();

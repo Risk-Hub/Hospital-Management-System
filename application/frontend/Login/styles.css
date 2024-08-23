@@ -1,0 +1,56 @@
+/* styles.css */
+body {
+    background-color: #f8f9fa;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    overflow: hidden;
+    margin: 0;
+}
+
+.card {
+    opacity: 0;
+    transform: translateY(-50px);
+    animation: fadeInUp 1s ease-out forwards;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+input.form-control {
+    transition: all 0.3s ease;
+}
+
+input.form-control:focus {
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+    transform: scale(1.02);
+}
+
+.btn-primary {
+    background-color: #007bff;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+    transform: translateY(-2px);
+}
+
+#refreshCaptcha {
+    transition: color 0.3s ease;
+}
+
+#refreshCaptcha:hover {
+    color: #0056b3;
+    text-decoration: underline;
+}

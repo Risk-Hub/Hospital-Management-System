@@ -1,12 +1,43 @@
 document.getElementById('loginForm').addEventListener('submit', function(event) {
-    let username = document.getElementById('username').value;
-    let password = document.getElementById('password').value;
+    // Get the values of the username and password fields
+    let username = document.getElementById('username').value.trim();
+    let password = document.getElementById('password').value.trim();
 
-    if (username.trim() === "" || password.trim() === "") {
+    // Check if both fields are filled in
+    if (username === "" || password === "") {
         alert("Please fill in both fields.");
         event.preventDefault();
+        return;
     }
+
+
+    
+    // Captcha validation
+    const captchaInput = document.getElementById('captchaInput').value.trim();
+    const captchaText = document.getElementById('captchaText').innerText;
+    if (captchaInput !== captchaText) {
+        alert('Captcha is incorrect. Please try again.');
+        event.preventDefault();
+        generateCaptcha(); // Generate a new CAPTCHA after incorrect attempt
+        return;
+    }
+
+    
+
+    // Password validation: must be username@123
+    let expectedPassword = `${username}@123`;
+    if (password !== expectedPassword) {
+        alert("Invalid password. The password should be 'username@123'.");
+        event.preventDefault();
+        return;
+    }
+
+
+    // If all validations pass, redirect to demo.html
+    event.preventDefault(); // Prevent the default form submission behavior
+    window.location.href = "demo.html"; // Redirect to demo.html
 });
+
 // Captcha generation
 function generateCaptcha() {
     const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
@@ -25,14 +56,3 @@ document.getElementById('refreshCaptcha').addEventListener('click', function(e) 
 
 // Initial CAPTCHA generation when page loads
 window.onload = generateCaptcha;
-
-// Form submission validation
-document.getElementById('loginForm').addEventListener('submit', function(e) {
-    const captchaInput = document.getElementById('captchaInput').value;
-    const captchaText = document.getElementById('captchaText').innerText;
-    if (captchaInput !== captchaText) {
-        e.preventDefault();
-        alert('Captcha is incorrect. Please try again.');
-        generateCaptcha(); // Generate a new CAPTCHA after incorrect attempt
-    }
-});

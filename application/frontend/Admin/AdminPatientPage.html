@@ -206,6 +206,30 @@
                             <h3 class="fw-bold fs-4 mb-3">Add New Patient</h3>
                             <button type="button" class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#addNewPatientModal">+ Add New</button>
                         </div>
+                        <div class="mb-3 d-flex justify-content-evenly">
+                            <div>
+                                <div class="d-flex">
+                                    <input type="text" readonly class="form-control-plaintext" id="staticEmail2" value="Age(in years):" style="width: 8em;">
+                                    <input type="number" class="form-control" id="ageFilterList">
+                                </div>
+                            </div>
+                            <div>
+                                <div class="d-flex">
+                                    <input type="text" readonly class="form-control-plaintext" id="staticEmail2" value="Doctor:" style="width: 8em;">
+                                    <select class="form-select" aria-label="Default select example" id="genderFilterList">
+                                        <option value="invalidValue">Choose Gender from the list</option>
+                                        <option value="male">Male</option>
+                                        <option value="female">Female</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="d-flex">
+                                    <button type="button" class="btn btn-primary" style="color: white;" onclick="autoPopulateTableData()"><i class="lni lni-search-alt"></i> Filter</button>
+                                    <button type="button" class="btn btn-primary mx-2" style="color: white;" onclick="clearFilters()"><i class="lni lni-trash-can"></i> Clear Filter</button>
+                                </div>
+                            </div>
+                        </div>
                         <h3 class="fw-bold fs-4 my-3" id="headingOnTable"></h3>
                         <div class="row">
                             <div class="col-12" id="tableDiv">

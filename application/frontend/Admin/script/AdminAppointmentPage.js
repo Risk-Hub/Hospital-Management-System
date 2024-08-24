@@ -2,9 +2,7 @@ console.log('Admin Appointment Page');
 
 
 // document.addEventListener('DOMContentLoaded', function() {
-    populateDropdowns();
-    showAppointmentsList();
-    countOfAppointments();
+    
     const doctorSelect = document.getElementById('doctorSelect');
     doctorSelect.addEventListener('change', function() {
         populateAvailableDates();
@@ -41,6 +39,7 @@ function populateDropdowns() {
     }    
 
     let doctorSelect = document.getElementById('doctorSelect');
+    let doctorFilterList = document.getElementById('doctorFilterList');
     let patientSelect = document.getElementById('patientSelect');
 
     // Populate doctors dropdown
@@ -49,6 +48,7 @@ function populateDropdowns() {
         option.value = doctor.id;
         option.textContent = `${doctor.id} - ${doctor.name}`;
         doctorSelect.appendChild(option);
+        doctorFilterList.appendChild(option);
     });
     
 
@@ -211,48 +211,64 @@ function countOfAppointments(){
     
 }
 
-
-function showAppointmentsList(){
-    const targetDates = ["2024-08-17", "2024-08-18", "2024-08-19"];
+let doctorIdToBeFiltered = null;
+let appointmentDateToBeFiltered = null;
+function showAppointmentsList() {
+    doctorIdToBeFiltered = document.getElementById("doctorFilterList").value;
+    appointmentDateToBeFiltered = document.getElementById("dateFilterList").value;
+    
     let doctors = localStorage.getItem("doctorList");
     let patients = localStorage.getItem("patientList");
-    if(patients == null){
+    if (patients) {
+        patientsObject = JSON.parse(patients);
+    } 
+    else {
         patientsObject = [];
     }
-    if(doctors == null){
+    if (doctors) {
+        doctorsObject = JSON.parse(doctors);
+    } 
+    else {
         doctorsObject = [];
     }
-    else{
-        let tableBody = document.getElementById("tableBody");
-        tableBody.innerHTML = "";
-        doctorsObject = JSON.parse(doctors);
-        doctorsObject.forEach(doctor => {
-            doctor.appointment.forEach(appointment => {
-                if(targetDates.includes(appointment.date)){
-                    appointment.timeslot.forEach(slot => {
-                        if (!slot.isAvailable && slot.patientId) {
-                        let patient = patientsObject.find(p => p.id === slot.patientId);                        
-                            tableBody.innerHTML += `
-                            <tr>
-                                <td>${appointment.date}</td>
-                                <td>${slot.time}</td>
-                                <td>${doctor.id}</td>
-                                <td>${doctor.name}</td>
-                                <td>${patient.id}</td>
-                                <td>${patient.name}</td>
-                                <td>
-                                    <button type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#editAppointmentModal" onclick="editAppointmentDetails(['${appointment.date}','${slot.time}','${doctor.id}','${doctor.name}','${patient.id}','${patient.name}'])"><i class="lni lni-pencil"></i> Edit</button>
-                                    <button type="button" class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#deleteAppointmentModal" onclick="confirmDelete(['${doctor.id}','${appointment.date}','${slot.time}'])"><i class="lni lni-trash-can"></i> Remove</button>
-                                </td>
-                            </tr>
-                            `;
-                        }
-                    });
-                }
-            });
+    
+    let tableBody = document.getElementById("tableBody");
+    tableBody.innerHTML = "";
+
+    doctorsObject.forEach(doctor => {
+        doctor.appointment.forEach(appointment => {
+            if ((appointmentDateToBeFiltered === "" || appointment.date === appointmentDateToBeFiltered) &&
+                (doctorIdToBeFiltered === "invalidValue" || doctor.id === doctorIdToBeFiltered)) {
+                appointment.timeslot.forEach(slot => {
+                    if (!slot.isAvailable && slot.patientId) {
+                        let patient = patientsObject.find(p => p.id === slot.patientId);
+                        tableBody.innerHTML += `
+                        <tr>
+                            <td>${appointment.date}</td>
+                            <td>${slot.time}</td>
+                            <td>${doctor.id}</td>
+                            <td>${doctor.name}</td>
+                            <td>${patient.id}</td>
+                            <td>${patient.name}</td>
+                            <td>
+                                <button type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#editAppointmentModal" onclick="editAppointmentDetails(['${appointment.date}','${slot.time}','${doctor.id}','${doctor.name}','${patient.id}','${patient.name}'])"><i class="lni lni-pencil"></i> Edit</button>
+                                <button type="button" class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#deleteAppointmentModal" onclick="confirmDelete(['${doctor.id}','${appointment.date}','${slot.time}'])"><i class="lni lni-trash-can"></i> Remove</button>
+                            </td>
+                        </tr>
+                        `;
+                    }
+                });
+            }
         });
-    }
+    });
 }
+
+function clearFilters() {
+    document.getElementById("doctorFilterList").selectedIndex = 0;
+    document.getElementById("dateFilterList").value = "invalidValue";
+    showAppointmentsList(); // Reload the appointments without filters
+}
+
 
 //This function sets the selected doctor ID to be edited in a global variable.
 let doctorIdToBeEdited = null;
@@ -334,43 +350,44 @@ function updateAvailableTimeSlots(selectedDate){
 let doctorIdToBeDeleted = null;
 let appointmentDateToBeDeleted = null;
 let timeSlotToBeDeleted = null;
-function confirmDelete(id,appointmentDate,timeSlot) {
+function confirmDelete(detailsArray) {
     // console.log("hello");
-    doctorIdToBeDeleted = id;
-    appointmentDateToBeDeleted = appointmentDate;
-    timeSlotToBeDeleted = timeSlot;
+    [doctorIdToBeDeleted,appointmentDateToBeDeleted,timeSlotToBeDeleted] = detailsArray;
+    // doctorIdToBeDeleted = id;
+    // appointmentDateToBeDeleted = appointmentDate;
+    // timeSlotToBeDeleted = timeSlot;
+    // console.log(id);
+    console.log(doctorIdToBeDeleted);
+    
 }
 
 
 //This function deletes an appointment record by the 'id' selected by the user
 function deleteAppointmentRecord(){
-    if(doctorIdToBeDeleted !== null){
-        // console.log("ok");
-        let doctors = localStorage.getItem("doctorList");
-        doctorsObject = JSON.parse(doctors);
-        const index = doctorsObject.findIndex(doctor => doctor.id === doctorIdToBeDeleted);
-    }
-    doctorIdToBeDeleted = null;
-
+    console.log(doctorIdToBeDeleted);
+    
     if (doctorIdToBeDeleted !== null) {
         // Get the doctor list from localStorage
         let doctors = localStorage.getItem("doctorList");
         let doctorsObject = JSON.parse(doctors);
-
+        
         // Find the index of the doctor whose appointment needs to be deleted
         const index = doctorsObject.findIndex(doctor => doctor.id === doctorIdToBeDeleted);
-
+        
         if (index !== -1) {
+            console.log("delete karne ghus gye")
             // Find the appointment date in the doctor's appointments
             const appointment = doctorsObject[index].appointment.find(appointmt => appointmt.date === appointmentDateToBeDeleted);
 
             if (appointment) {
                 // Find the specific timeslot to delete (set `isAvailable` to true and `patientId` to null)
-                const timeslot = appointment.timeslot.find(slot => slot.time === selectedTimeSlot);
+                const timeslot = appointment.timeslot.find(slot => slot.time === timeSlotToBeDeleted);
 
                 if (timeslot) {
                     timeslot.isAvailable = true;
                     timeslot.patientId = null;
+                    console.log("set hogya bc");
+                    
                 }
             }
         }
@@ -383,7 +400,7 @@ function deleteAppointmentRecord(){
     doctorIdToBeDeleted = null;
     appointmentDateToBeDeleted = null;
     timeSlotToBeDeleted = null;
-    console.log('ok');
+    // console.log('ok');
     console.log(doctorsObject);
     
     showAppointmentsList();
@@ -391,3 +408,7 @@ function deleteAppointmentRecord(){
 
 
 // editAppointmentDetails function ko complete karna hai, diary mein pichhe jo diagram banaye hain uske "html populate doc of id (doc id)" pe kaam chal rha hai
+
+populateDropdowns();
+    showAppointmentsList();
+    countOfAppointments();

@@ -22,38 +22,58 @@ function countOfPatients() {
 
 
 //This function will auto-populate table with the data present in LocalStorage
-function autoPopulateTableData(){
+let ageToBeFiltered = -1;
+let genderToBeFiltered = null;
+function autoPopulateTableData() {
+    ageToBeFiltered = document.getElementById("ageFilterList").value;
+    genderToBeFiltered = document.getElementById("genderFilterList").value;
+
     let patients = localStorage.getItem("patientList");
-    if(patients == null || patients == "[]"){
+    let tableBody = document.getElementById("tableBody");
+    tableBody.innerHTML = ""; // Clear existing data
+
+    if (patients == null || patients == "[]") {
         patientsObject = [];
-        tableBody.innerHTML = ""; 
         document.getElementById("tableDiv").innerHTML += `
             <center>
                 <img src="../resource/img/patient.svg" alt="" style="height: 6em; margin-top: 2em;"><br><br>
                 Nothing to display here! Please add a new Patient.            
             </center>
         `;
-        console.log("ok")
-    }
-    else{
+    } 
+    else {
         patientsObject = JSON.parse(patients);
-        let tableBody = document.getElementById("tableBody");  
-        tableBody.innerHTML = "";      
-        patientsObject.forEach(element => {            
-            tableBody.innerHTML += `
-                <tr>
-                    <th scope="row">${element.id}</th>
-                    <td>${element.name}</td>
-                    <td>
-                        <button type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#editPatientModal" onclick="editPatientDetails('${element.id}')"><i class="lni lni-pencil"></i> Edit</button>
-                        <button type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#viewPatientModal" onclick="viewPatientDetails('${element.id}')"><i class="lni lni-eye"></i> View</button>
-                        <button type="button" class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#deletePatientModal" onclick="confirmDelete('${element.id}')"><i class="lni lni-trash-can"></i> Remove</button>
-                    </td>
-                </tr>
-            `;
+
+        patientsObject.forEach(element => {
+            // Apply filters for age and gender
+            let ageMatches = (ageToBeFiltered === "" || element.age == ageToBeFiltered);
+            let genderMatches = (genderToBeFiltered === "invalidValue" || element.gender === genderToBeFiltered);
+
+            if (ageMatches && genderMatches) {
+                tableBody.innerHTML += `
+                    <tr>
+                        <th scope="row">${element.id}</th>
+                        <td>${element.name}</td>
+                        <td>${element.age}</td>
+                        <td>${element.gender}</td>
+                        <td>
+                            <button type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#editPatientModal" onclick="editPatientDetails('${element.id}')"><i class="lni lni-pencil"></i> Edit</button>
+                            <button type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#viewPatientModal" onclick="viewPatientDetails('${element.id}')"><i class="lni lni-eye"></i> View</button>
+                            <button type="button" class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#deletePatientModal" onclick="confirmDelete('${element.id}')"><i class="lni lni-trash-can"></i> Remove</button>
+                        </td>
+                    </tr>
+                `;
+            }
         });
     }
 }
+
+function clearFilters() {
+    document.getElementById("ageFilterList").value = "";
+    document.getElementById("genderFilterList").selectedIndex = 0;
+    autoPopulateTableData(); // Reload the table without any filters
+}
+
 
 
 //This method adds a new doctor to LocalStorage

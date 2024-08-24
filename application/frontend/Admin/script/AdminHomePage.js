@@ -48,7 +48,7 @@ let doctorsObject = [
                 "date":"2024-08-17",
                 "timeslot":[
                     {"time":"09:00-11:00", "isAvailable": true, "patientId": null},
-                    {"time":"11:00-13:00", "isAvailable": false, "patientId": "pat05"},
+                    {"time":"11:00-13:00", "isAvailable": false, "patientId": "pat04"},
                     {"time":"14:00-16:00", "isAvailable": true, "patientId": null}
                 ]
             },
@@ -216,6 +216,7 @@ function countOfAppointments(){
 }
 
 
+//This function is made to update the appointments if in case a patient's profile is deleted.
 function updateAppointmentsInLocalStorage() {
     let patientsObject = JSON.parse(localStorage.getItem("patientList"));
 
@@ -241,55 +242,55 @@ function updateAppointmentsInLocalStorage() {
 }
 
 
-function showAppointmentsList(){
-    const targetDates = ["2024-08-17", "2024-08-18", "2024-08-19"];
-    let appointmentsArr = [];
-    let doctors = localStorage.getItem("doctorList");
-    let patients = localStorage.getItem("patientList");
-    if(patients == null){
-        patientsObject = [];
-    }
-    if(doctors == null){
-        doctorsObject = [];
-    }
-    else{
-        doctorsObject = JSON.parse(doctors);
-        doctorsObject.forEach(doctor => {
-            doctor.appointment.forEach(appointment => {
-                if(targetDates.includes(appointment.date)){
-                    appointment.timeslot.forEach(slot => {
-                        if (!slot.isAvailable && slot.patientId) {
-                            let patient = patientsObject.find(p => p.id === slot.patientId);
-                            if(patient){
-                                appointmentsArr.push({
-                                    date: appointment.date,
-                                    time: slot.time,
-                                    doctorId: doctor.id,
-                                    doctorName: doctor.name,
-                                    patientId: patient.id,
-                                    patientName: patient.name
-                                });
-                            }
-                        }
-                    });
-                }
-            });
-        });
-    }
+// function showAppointmentsList(){
+//     const targetDates = ["2024-08-17", "2024-08-18", "2024-08-19"];
+//     let appointmentsArr = [];
+//     let doctors = localStorage.getItem("doctorList");
+//     let patients = localStorage.getItem("patientList");
+//     if(patients == null){
+//         patientsObject = [];
+//     }
+//     if(doctors == null){
+//         doctorsObject = [];
+//     }
+//     else{
+//         doctorsObject = JSON.parse(doctors);
+//         doctorsObject.forEach(doctor => {
+//             doctor.appointment.forEach(appointment => {
+//                 if(targetDates.includes(appointment.date)){
+//                     appointment.timeslot.forEach(slot => {
+//                         if (!slot.isAvailable && slot.patientId) {
+//                             let patient = patientsObject.find(p => p.id === slot.patientId);
+//                             if(patient){
+//                                 appointmentsArr.push({
+//                                     date: appointment.date,
+//                                     time: slot.time,
+//                                     doctorId: doctor.id,
+//                                     doctorName: doctor.name,
+//                                     patientId: patient.id,
+//                                     patientName: patient.name
+//                                 });
+//                             }
+//                         }
+//                     });
+//                 }
+//             });
+//         });
+//     }
 
-    let tableBody = document.getElementById("tableBody");
-    tableBody.innerHTML = "";
-    appointmentsArr.forEach(appointment => {
-        tableBody.innerHTML += `
-            <td>${appointment.date}</td>
-            <td>${appointment.time}</td>
-            <td>${appointment.doctorId}</td>
-            <td>${appointment.doctorName}</td>
-            <td>${appointment.patientId}</td>
-            <td>${appointment.patientName}</td>
-        `;
-    });
-}
+//     let tableBody = document.getElementById("tableBody");
+//     tableBody.innerHTML = "";
+//     appointmentsArr.forEach(appointment => {
+//         tableBody.innerHTML += `
+//             <td>${appointment.date}</td>
+//             <td>${appointment.time}</td>
+//             <td>${appointment.doctorId}</td>
+//             <td>${appointment.doctorName}</td>
+//             <td>${appointment.patientId}</td>
+//             <td>${appointment.patientName}</td>
+//         `;
+//     });
+// }
 
 
 
@@ -301,7 +302,7 @@ countOfDoctors();
 countOfUsers();
 countOfPatients();
 countOfAppointments();
-showAppointmentsList();
+// showAppointmentsList();
 
 
 // Todo: appointments :)

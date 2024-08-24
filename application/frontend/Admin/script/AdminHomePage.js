@@ -293,8 +293,132 @@ function updateAppointmentsInLocalStorage() {
 // }
 
 
+function countOfAppointmentsByEachDoctor(){
+    let doctors = localStorage.getItem("doctorList");
+    if(doctors){
+        doctorsObject = JSON.parse(doctors);
+    }
+    else{
+        doctorsObject = [];
+    }
+
+    doctorsObject.forEach(doctor => {
+        let totalAppointments = 0;
+        doctor.appointment.forEach(appointment =>{
+            appointment.timeslot.forEach(slot => {
+                if(!slot.isAvailable && slot.patientId){
+                    totalAppointments++;
+                }
+            })
+        })
+        document.getElementById("countOfAppointmentsByEachDoctor").innerHTML += `<p style="font-size: large; display: inline-block;">${doctor.id} (${doctor.name}) --> </p> <p style="font-size: large; display: inline-block; color: #0d6efd;"><b>${totalAppointments}</b></p><br>`;
+    })
+}
 
 
+function countOfAllAppointmentsByEachDay(){
+    // Initialize an object to store the number of appointments for each day
+    let appointmentsPerDay = {};
+    let doctors = localStorage.getItem("doctorList");
+    if(doctors){
+        doctorsObject = JSON.parse(doctors);
+    }
+    else{
+        doctorsObject = [];
+    }
+
+    // Iterate over each doctor in the doctorsObject array
+    doctorsObject.forEach(doctor => {
+        // Iterate over each appointment of the current doctor
+        doctor.appointment.forEach(appointment => {
+            // Extract the date of the appointment
+            const date = appointment.date;
+
+            // Initialize the count for this date if it doesn't exist in the appointmentsPerDay object
+            if (!appointmentsPerDay[date]) {
+                appointmentsPerDay[date] = 0;
+            }
+
+            // Count the number of booked timeslots for this appointment date
+            appointment.timeslot.forEach(slot => {
+                if (!slot.isAvailable) {
+                    appointmentsPerDay[date]++;
+                }
+            });
+        });
+    });
+
+    // Display the total number of appointments for each date
+    for (const date in appointmentsPerDay) {
+        // console.log(`Date: ${date} has ${appointmentsPerDay[date]} appointment(s) across all doctors.`);
+        document.getElementById("countOfAllAppointmentsByEachDay").innerHTML += `<p style="font-size: large; display: inline-block;">No. of appointments on ${date} --> </p> <p style="font-size: large; display: inline-block; color: #0d6efd;"><b>${appointmentsPerDay[date]}</b></p><br>`;
+    }
+}
+
+function countOfAllAppointmentsByEachPatient(){
+    // Initialize an object to store the number of visits for each patient
+    let patientVisits = {};
+
+    let doctors = localStorage.getItem("doctorList");
+    if(doctors){
+        doctorsObject = JSON.parse(doctors);
+    }
+    else{
+        doctorsObject = [];
+    }
+
+    // Iterate over each doctor in the doctorsObject array
+    doctorsObject.forEach(doctor => {
+        // Iterate over each appointment of the current doctor
+        doctor.appointment.forEach(appointment => {
+            // Iterate over each timeslot in the appointment
+            appointment.timeslot.forEach(slot => {
+                // Check if the timeslot is booked (patientId is not null)
+                if (slot.patientId) {
+                    const patientId = slot.patientId;
+
+                    // Initialize the count for this patient if it doesn't exist in the patientVisits object
+                    if (!patientVisits[patientId]) {
+                        patientVisits[patientId] = 0;
+                    }
+
+                    // Increment the count for this patient
+                    patientVisits[patientId]++;
+                }
+            });
+        });
+    });
+
+    // Display the total number of visits for each patient
+    for (const patientId in patientVisits) {
+        document.getElementById("countOfAppointmentsByEachPatient").innerHTML += `<p style="font-size: large; display: inline-block;">${patientId}  --> </p> <p style="font-size: large; display: inline-block; color: #0d6efd;"><b>${patientVisits[patientId]}</b></p><br>`;
+    }
+
+}
+
+function countOfPatientsByGender(){
+    // Initialize an object to store the count of patients by gender
+    let genderCount = {};
+
+    // Iterate over each patient in the dummyPatientData array
+    dummyPatientData.forEach(patient => {
+        const gender = patient.gender;
+
+        // Initialize the count for this gender if it doesn't exist in the genderCount object
+        if (!genderCount[gender]) {
+            genderCount[gender] = 0;
+        }
+
+        // Increment the count for this gender
+        genderCount[gender]++;
+    });
+
+    // Display the number of patients by gender
+    for (const gender in genderCount) {
+        // console.log(`There are ${genderCount[gender]} ${gender} patient(s).`);
+        document.getElementById("countOfPatientsByGender").innerHTML += `<p style="font-size: large; display: inline-block;">No. of ${gender.charAt(0).toUpperCase() + gender.slice(1)} patients --> </p> <p style="font-size: large; display: inline-block; color: #0d6efd;"><b>${genderCount[gender]}</b></p><br>`;
+    }
+}
 
 setInitialDataToLocalStorage();
 updateAppointmentsInLocalStorage();
@@ -302,7 +426,10 @@ countOfDoctors();
 countOfUsers();
 countOfPatients();
 countOfAppointments();
-// showAppointmentsList();
+countOfAppointmentsByEachDoctor();
+countOfAllAppointmentsByEachDay();
+countOfAllAppointmentsByEachPatient();
+countOfPatientsByGender();
 
 
 // Todo: appointments :)

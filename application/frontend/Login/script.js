@@ -1,3 +1,9 @@
+ // Hardcoded JSON object with valid usernames and passwords
+  const users = [
+    { username: "Rishabh", password: "Rish@123" },
+    { username: "Harsh", password: "Coder101" }
+];
+
 document.getElementById('loginForm').addEventListener('submit', function(event) {
     // Get the values of the username and password fields
     let username = document.getElementById('username').value.trim();
@@ -24,19 +30,27 @@ document.getElementById('loginForm').addEventListener('submit', function(event) 
 
     
 
-    // Password validation: must be username@123
-    let expectedPassword = `${username}@123`;
-    if (password !== expectedPassword) {
-        alert("Invalid password. The password should be 'username@123'.");
-        event.preventDefault();
-        return;
-    }
+
+        // Check if the username and password are present in the JSON object
+        const user = users.find(user => user.username === username && user.password === password);
+
+        if (user) {
+            // Redirect to another page if credentials are valid
+            window.location.href = "demo.html";
+        } else {
+            // Show alert if credentials are invalid
+            alert("Invalid username or password");
+        }
+
 
 
     // If all validations pass, redirect to demo.html
     event.preventDefault(); // Prevent the default form submission behavior
-    window.location.href = "demo.html"; // Redirect to demo.html
-});
+    //window.location.href = "demo.html"; // Redirect to demo.html
+
+    });
+
+
 
 // Captcha generation
 function generateCaptcha() {

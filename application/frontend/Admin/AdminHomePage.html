@@ -9,6 +9,12 @@
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link href="https://cdn.lineicons.com/4.0/lineicons.css" rel="stylesheet">
     <link rel="stylesheet" href="./css/AdminHomePage.css">
+    <script>
+        if (sessionStorage.getItem('isLoggedIn') !== 'true') {
+            alert('Unauthorized access. Please log in.');
+            window.location.href = '../Login/login.html';
+        }
+    </script>
 </head>
 
 <body>
@@ -62,23 +68,6 @@
             </div>
         </aside>
         <div class="main">
-            <nav class="navbar navbar-expand px-4 py-3">
-                <form action="#" class="d-none d-sm-inline-block">
-
-                </form>
-                <div class="navbar-collapse collapse">
-                    <ul class="navbar-nav ms-auto">
-                        <li class="nav-item dropdown">
-                            <a href="#" data-bs-toggle="dropdown" class="nav-icon pe-md-0">
-                                <img src="../resource/img/account.png" class="avatar img-fluid" alt="">
-                            </a>
-                            <div class="dropdown-menu dropdown-menu-end rounded">
-
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-            </nav>
             <main class="content px-3 py-4">
                 <div class="container-fluid">
                     <div class="mb-3">
@@ -138,26 +127,6 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <h3 class="fw-bold fs-4 mb-3 my-4">Upcoming Appointments</h3>
-                        <div class="col-12" id="tableDiv">
-                            <table class="table table-striped table-light">
-                                <thead>
-                                    <tr class="highlight">
-                                        <th scope="col">Date</th>
-                                        <th scope="col">Time Slot</th>
-                                        <th scope="col">Doctor ID</th>
-                                        <th scope="col">Doctor Name</th>
-                                        <th scope="col">Patient ID</th>
-                                        <th scope="col">Patient Name</th>
-                                    </tr>
-                                </thead>
-                                <tbody class="table-group-divider" id="tableBody">
-                                    
-                                </tbody>
-                            </table>
                         </div>
                     </div>
                 </div>

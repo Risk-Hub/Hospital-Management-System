@@ -1,4 +1,4 @@
-console.log("ok");
+console.log("Admin Home Page");
 
 const hamBurger = document.querySelector(".toggle-btn");
 hamBurger.addEventListener("click", function () {

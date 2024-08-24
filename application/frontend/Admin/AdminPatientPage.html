@@ -9,6 +9,12 @@
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link href="https://cdn.lineicons.com/4.0/lineicons.css" rel="stylesheet">
     <link rel="stylesheet" href="./css/AdminHomePage.css">
+    <script>
+        if (sessionStorage.getItem('isLoggedIn') !== 'true') {
+            alert('Unauthorized access. Please log in.');
+            window.location.href = '../Login/login.html';
+        }
+    </script>
 </head>
 
 <body>

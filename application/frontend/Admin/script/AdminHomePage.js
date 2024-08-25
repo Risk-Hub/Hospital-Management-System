@@ -133,6 +133,70 @@ let doctorsObject = [
                 ]
             }
         ]
+    },
+    {
+        "id":"doc03",
+        "name":"Example Doctor03",
+        "email":"doc03@hms.com",
+        "contact":"+91-8820749392",
+        "appointment":[
+            {
+                "date":"2024-08-17",
+                "timeslot":[
+                    {"time":"09:00-11:00", "isAvailable": false, "patientId": "pat08"},
+                    {"time":"11:00-13:00", "isAvailable": true, "patientId": null},
+                    {"time":"14:00-16:00", "isAvailable": true, "patientId": null}
+                ]
+            },
+            {
+                "date":"2024-08-18",
+                "timeslot":[
+                    {"time":"09:00-11:00", "isAvailable": true, "patientId": null},
+                    {"time":"11:00-13:00", "isAvailable": true, "patientId": null},
+                    {"time":"14:00-16:00", "isAvailable": true, "patientId": null}
+                ]
+            },
+            {
+                "date":"2024-08-19",
+                "timeslot":[
+                    {"time":"09:00-11:00", "isAvailable": true, "patientId": null},
+                    {"time":"11:00-13:00", "isAvailable": true, "patientId": null},
+                    {"time":"14:00-16:00", "isAvailable": false, "patientId": "pat09"}
+                ]
+            }
+        ]
+    },
+    {
+        "id":"doc04",
+        "name":"Example Doctor04",
+        "email":"doc04@hms.com",
+        "contact":"+91-7891234987",
+        "appointment":[
+            {
+                "date":"2024-08-17",
+                "timeslot":[
+                    {"time":"09:00-11:00", "isAvailable": false, "patientId": "pat10"},
+                    {"time":"11:00-13:00", "isAvailable": false, "patientId": "pat11"},
+                    {"time":"14:00-16:00", "isAvailable": false, "patientId": "pat12"}
+                ]
+            },
+            {
+                "date":"2024-08-18",
+                "timeslot":[
+                    {"time":"09:00-11:00", "isAvailable": true, "patientId": null},
+                    {"time":"11:00-13:00", "isAvailable": false, "patientId": "pat06"},
+                    {"time":"14:00-16:00", "isAvailable": false, "patientId": "pat07"}
+                ]
+            },
+            {
+                "date":"2024-08-19",
+                "timeslot":[
+                    {"time":"09:00-11:00", "isAvailable": true, "patientId": null},
+                    {"time":"11:00-13:00", "isAvailable": true, "patientId": null},
+                    {"time":"14:00-16:00", "isAvailable": true, "patientId": null}
+                ]
+            }
+        ]
     }
 ];
 

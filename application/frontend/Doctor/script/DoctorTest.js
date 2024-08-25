@@ -87,7 +87,15 @@ function autoPopulateTableData() {
 const diseaseToTests = {
     "FLU": ["Blood Test", "Influenza Test"],
     "BACKPAIN": ["X-Ray", "MRI"],
-    "HEADACHE": ["CT Scan", "Eye Examination"]
+    "HEADACHE": ["CT Scan", "Eye Examination"],
+    "DEPRESSION": ["Psychological Evaluation"],
+    "OSTEOPOROSIS": ["Bone Density Test", "X-Ray"],
+    "CHRONICKIDNEYDISEASE": ["Blood Test", "Urine Test"],
+    "ARTHRITIS": ["X-Ray", "MRI"],
+    "MIGRAINE": ["MRI", "CT Scan"],
+    "HYPERTENSION": ["Blood Pressure Monitoring", "Electrocardiogram (ECG)"],
+    "DIABETES": ["Fasting Blood Sugar", "HbA1c Test"],
+    "ASTHMA": ["Pulmonary Function Test", "Chest X-Ray"]
     // Add more mappings as needed
 };
 
@@ -125,7 +133,6 @@ function addNewPatientToList() {
         "name": patientName,
         "appointment_date": appointmentDate,
         "appointment_slot": appointmentSlot,
-        // "disease_name": diseaseName
         "disease": disease
     };
     if (patientsObject.some(patient => patient.id === obj.id)) {
@@ -159,7 +166,8 @@ function viewPatientDetails(id) {
         let disease = selectedPatient.disease_name ? selectedPatient.disease_name.trim().toUpperCase() : 'N/A';
         console.log(disease);
         
-        let suggestedTests = selectedPatient.disease?.tests.join(", ") || 'N/A';
+        // let suggestedTests = selectedPatient.disease?.tests.join(", ") || 'N/A';
+        let suggestedTests = selectedPatient.disease.tests;
         console.log(suggestedTests);
 
         // Constructing the modal body with patient details
@@ -177,11 +185,13 @@ function viewPatientDetails(id) {
                 <label for="diseaseNameInput">Disease Name</label>
             </div>
             <div class="form-floating mb-3">
-                <textarea class="form-control" id="recommendedTestsInput" disabled>${(selectedPatient.disease?.tests || []).join(', ') || 'N/A'}</textarea>
+                <textarea class="form-control" id="recommendedTestsInput" disabled>${suggestedTests}</textarea>
+
                 <label for="recommendedTestsInput">Suggested Tests</label>
             </div>
         `;
 
+        // <textarea class="form-control" id="recommendedTestsInput" disabled>${(selectedPatient.disease?.tests || []).join(', ') || 'N/A'}</textarea>
     }
     console.log(selectedPatient.name, selectedPatient.id, selectedPatient.appointment_date, selectedPatient.appointment_slot);
 

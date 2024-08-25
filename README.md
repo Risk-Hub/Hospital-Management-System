@@ -91,7 +91,7 @@ To get started with the Hospital Management System:
 
 
 # Configuration
-There are no special configuration steps required beyond placing the files in the correct directories. Ensure all dependencies (if any) are correctly referenced in your HTML and JavaScript files.
+There are no special configuration steps required for frontend beyond placing the files in the correct directories. Ensure all dependencies (if any) are correctly referenced in your HTML and JavaScript files.
 
 
 1. Admin Folder
@@ -143,6 +143,14 @@ Demo.html
 Login.html
 Scripts: Contains script.js for login-related JavaScript.
 Styles: Contains styles.css for login-related styles
+
+Instructions for executing the backend code: 
+1. Change the database credentials & the database url & name according to your local machine.
+2. Make sure to first set up the database before running the program.
+3. Use Java 17 & the maven dependencies mentioned in the pom.xml as given to avoid any exceptions due to it.
+4. The doctor.json file is attached along the code, use correct filepath while execution. Another json file can also be used as per your input.
+5. Due to data being inserted at a previous date, some features which nead current & future dates might not give you any result. To avoid that, manipulate the data to store the current date of the appointments.
+
 
 # Credentials
 Admin

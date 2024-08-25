@@ -29,7 +29,7 @@ let loginData = [
     }
 ];
 
-
+sessionStorage.clear();
 
 function validate(event) {
     // Get the values of the username and password fields

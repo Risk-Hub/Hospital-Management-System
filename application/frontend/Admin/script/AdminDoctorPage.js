@@ -1,4 +1,4 @@
-console.log("Admin Doctor Page");
+// console.log("Admin Doctor Page");
 
 const hamBurger = document.querySelector(".toggle-btn");
 hamBurger.addEventListener("click", function () {
@@ -18,7 +18,7 @@ function countOfDoctors() {
         count = doctorsObject.length;
     }
     document.getElementById('headingOnTable').innerHTML = `All Doctors(${count})`;
-    console.log(count);
+    // console.log(count);
 }
 
 
@@ -26,7 +26,6 @@ function countOfDoctors() {
 //This function will auto-populate table with the data present in LocalStorage
 function autoPopulateTableData(){
     let doctors = localStorage.getItem("doctorList");
-    console.log(doctors);
     if(doctors == null || doctors == "[]"){
         doctorsObject = [];
         tableBody.innerHTML = "";    
@@ -36,7 +35,6 @@ function autoPopulateTableData(){
                 Nothing to display here! Please add a new doctor.            
             </center>
         `;
-        console.log("ok")
     }
     else{
         doctorsObject = JSON.parse(doctors);
@@ -70,13 +68,9 @@ function addNewDoctorToList() {
     }
 
     let doctorId = document.getElementById("doctorId").value;
-    console.log(doctorId);
     let doctorName = document.getElementById("doctorName").value;
-    console.log(doctorName);
     let doctorEmail = document.getElementById("doctorEmail").value;
-    console.log(doctorEmail);
     let doctorContactNumber = document.getElementById("doctorContactNumber").value;
-    console.log(doctorContactNumber);
     
     let obj = {
         "id":doctorId.toLowerCase(),
@@ -97,12 +91,12 @@ function addNewDoctorToList() {
         ]
     };
     if(doctorsObject.some(doctor => doctor.id === obj.id)){
-        console.log("Doctor already exist");        //This needs to be handled. Made for testing purpose.
+        alert("Doctor already exist");        //This needs to be handled. Made for testing purpose.
     }
     else{
         doctorsObject.push(obj);
     }
-    console.log(doctorsObject);
+    // console.log(doctorsObject);
     localStorage.setItem("doctorList",JSON.stringify(doctorsObject));
     autoPopulateTableData();        //Auto-populate function's logic need to be revised, displaying incorrect values on table UI.
     countOfDoctors();
@@ -256,14 +250,13 @@ function saveEditedDoctor(){
 //This function sets the selected Doctor ID to be deleted in a global variable.
 let doctorIdToBeDeleted = null;
 function confirmDelete(id) {
-    console.log("hello");
+    // console.log("hello");
     doctorIdToBeDeleted = id;
 }
 
 //This function deletes a doctor's record by the 'id' selected by the user
 function deleteDoctorRecord(){
     if(doctorIdToBeDeleted !== null){
-        // console.log("ok");
         let doctors = localStorage.getItem("doctorList");
         doctorsObject = JSON.parse(doctors);
         const index = doctorsObject.findIndex(doctor => doctor.id === doctorIdToBeDeleted);

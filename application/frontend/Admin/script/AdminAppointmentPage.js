@@ -1,27 +1,22 @@
-console.log('Admin Appointment Page');
+// console.log('Admin Appointment Page');
 
-
-// document.addEventListener('DOMContentLoaded', function() {
     
-    const doctorSelect = document.getElementById('doctorSelect');
-    doctorSelect.addEventListener('change', function() {
-        populateAvailableDates();
-    });
+const doctorSelect = document.getElementById('doctorSelect');
+doctorSelect.addEventListener('change', function() {
+    populateAvailableDates();
+});
 
-    const appointmentDateInput = document.getElementById('appointmentDate');
-    appointmentDateInput.addEventListener('change', function() {
-        populateTimeSlots();
-    });
-
-// });
+const appointmentDateInput = document.getElementById('appointmentDate');
+appointmentDateInput.addEventListener('change', function() {
+    populateTimeSlots();
+});
 
 
 function populateDropdowns() {
-    console.log('ok');
+    // console.log('ok');
     
     // Fetch doctor and patient data from localStorage
     let doctors = localStorage.getItem("doctorList");
-    // let doctorsObject;
     if(doctors){
         doctorsObject = JSON.parse(doctors);
     }
@@ -30,7 +25,6 @@ function populateDropdowns() {
     }    
 
     let patients = localStorage.getItem("patientList");
-    // let patientsObject;
     if(patients){
         patientsObject = JSON.parse(patients);
     }
@@ -54,7 +48,7 @@ function populateDropdowns() {
 
     // Populate patients dropdown
     patientsObject.forEach(patient => {
-        console.log(patient);
+        // console.log(patient);
         let option = document.createElement('option');
         option.value = patient.id;
         option.textContent = `${patient.id} - ${patient.name}`;
@@ -207,8 +201,7 @@ function countOfAppointments(){
         });
     }
     document.getElementById('headingOnTable').innerText = `Upcoming Appointments(${count})`;
-    console.log(count);
-    
+    // console.log(count);    
 }
 
 let doctorIdToBeFiltered = null;
@@ -278,7 +271,7 @@ function editAppointmentDetails(detailsArray){
     document.getElementById("patientId").value = "";
     document.getElementById("appointmentDate2").value = "";
     document.getElementById("timeslot").value = "";
-    console.log(date + " " + time + " " + doctorId + " " + doctorName + " " + patientId + " " + patientName);
+    // console.log(date + " " + time + " " + doctorId + " " + doctorName + " " + patientId + " " + patientName);
     
 
     doctorIdToBeEdited = doctorId;
@@ -352,19 +345,13 @@ let appointmentDateToBeDeleted = null;
 let timeSlotToBeDeleted = null;
 function confirmDelete(detailsArray) {
     // console.log("hello");
-    [doctorIdToBeDeleted,appointmentDateToBeDeleted,timeSlotToBeDeleted] = detailsArray;
-    // doctorIdToBeDeleted = id;
-    // appointmentDateToBeDeleted = appointmentDate;
-    // timeSlotToBeDeleted = timeSlot;
-    // console.log(id);
-    console.log(doctorIdToBeDeleted);
-    
+    [doctorIdToBeDeleted,appointmentDateToBeDeleted,timeSlotToBeDeleted] = detailsArray;    
 }
 
 
 //This function deletes an appointment record by the 'id' selected by the user
 function deleteAppointmentRecord(){
-    console.log(doctorIdToBeDeleted);
+    // console.log(doctorIdToBeDeleted);
     
     if (doctorIdToBeDeleted !== null) {
         // Get the doctor list from localStorage
@@ -375,7 +362,6 @@ function deleteAppointmentRecord(){
         const index = doctorsObject.findIndex(doctor => doctor.id === doctorIdToBeDeleted);
         
         if (index !== -1) {
-            console.log("delete karne ghus gye")
             // Find the appointment date in the doctor's appointments
             const appointment = doctorsObject[index].appointment.find(appointmt => appointmt.date === appointmentDateToBeDeleted);
 
@@ -385,9 +371,7 @@ function deleteAppointmentRecord(){
 
                 if (timeslot) {
                     timeslot.isAvailable = true;
-                    timeslot.patientId = null;
-                    console.log("set hogya bc");
-                    
+                    timeslot.patientId = null;                    
                 }
             }
         }
@@ -401,14 +385,13 @@ function deleteAppointmentRecord(){
     appointmentDateToBeDeleted = null;
     timeSlotToBeDeleted = null;
     // console.log('ok');
-    console.log(doctorsObject);
+    // console.log(doctorsObject);
     
     showAppointmentsList();
 }
 
 
-// editAppointmentDetails function ko complete karna hai, diary mein pichhe jo diagram banaye hain uske "html populate doc of id (doc id)" pe kaam chal rha hai
 
 populateDropdowns();
-    showAppointmentsList();
-    countOfAppointments();
+showAppointmentsList();
+countOfAppointments();

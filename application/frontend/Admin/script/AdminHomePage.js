@@ -1,4 +1,4 @@
-console.log("Admin Home Page");
+// console.log("Admin Home Page");
 
 const hamBurger = document.querySelector(".toggle-btn");
 hamBurger.addEventListener("click", function () {
@@ -129,7 +129,7 @@ let dummyPatientData = [
 
 //This method sets initial data from Doctor.json file to LocalStorage
 function setInitialDataToLocalStorage() {
-    localStorage.clear();                           //This needs to be deleted. Made for testing purpose.
+    // localStorage.clear();                           //This needs to be deleted. Made for testing purpose.
     localStorage.setItem("doctorList",JSON.stringify(doctorsObject));
     localStorage.setItem("userList",JSON.stringify(dummyUserData));
     localStorage.setItem("patientList",JSON.stringify(dummyPatientData));
@@ -149,7 +149,7 @@ function countOfDoctors() {
         count = doctorsObject.length;
     }
     document.getElementsByTagName('h4')[0].innerText = `${count}`;
-    console.log(count);
+    // console.log(count);
 }
 
 function countOfUsers() {
@@ -163,7 +163,7 @@ function countOfUsers() {
         count = usersObject.length;
     }
     document.getElementsByTagName('h4')[2].innerText = `${count}`;
-    console.log(count);
+    // console.log(count);
 }
 
 
@@ -178,7 +178,7 @@ function countOfPatients() {
         count = patientsObject.length;
     }
     document.getElementsByTagName('h4')[4].innerText = `${count}`;
-    console.log(count);
+    // console.log(count);
 }
 
 
@@ -211,8 +211,7 @@ function countOfAppointments(){
         });
     }
     document.getElementsByTagName('h4')[6].innerText = `${count}`;
-    console.log(count);
-    
+    // console.log(count);    
 }
 
 
@@ -241,56 +240,6 @@ function updateAppointmentsInLocalStorage() {
     localStorage.setItem('doctorList', JSON.stringify(doctorsObject));
 }
 
-
-// function showAppointmentsList(){
-//     const targetDates = ["2024-08-17", "2024-08-18", "2024-08-19"];
-//     let appointmentsArr = [];
-//     let doctors = localStorage.getItem("doctorList");
-//     let patients = localStorage.getItem("patientList");
-//     if(patients == null){
-//         patientsObject = [];
-//     }
-//     if(doctors == null){
-//         doctorsObject = [];
-//     }
-//     else{
-//         doctorsObject = JSON.parse(doctors);
-//         doctorsObject.forEach(doctor => {
-//             doctor.appointment.forEach(appointment => {
-//                 if(targetDates.includes(appointment.date)){
-//                     appointment.timeslot.forEach(slot => {
-//                         if (!slot.isAvailable && slot.patientId) {
-//                             let patient = patientsObject.find(p => p.id === slot.patientId);
-//                             if(patient){
-//                                 appointmentsArr.push({
-//                                     date: appointment.date,
-//                                     time: slot.time,
-//                                     doctorId: doctor.id,
-//                                     doctorName: doctor.name,
-//                                     patientId: patient.id,
-//                                     patientName: patient.name
-//                                 });
-//                             }
-//                         }
-//                     });
-//                 }
-//             });
-//         });
-//     }
-
-//     let tableBody = document.getElementById("tableBody");
-//     tableBody.innerHTML = "";
-//     appointmentsArr.forEach(appointment => {
-//         tableBody.innerHTML += `
-//             <td>${appointment.date}</td>
-//             <td>${appointment.time}</td>
-//             <td>${appointment.doctorId}</td>
-//             <td>${appointment.doctorName}</td>
-//             <td>${appointment.patientId}</td>
-//             <td>${appointment.patientName}</td>
-//         `;
-//     });
-// }
 
 
 function countOfAppointmentsByEachDoctor(){
@@ -350,7 +299,6 @@ function countOfAllAppointmentsByEachDay(){
 
     // Display the total number of appointments for each date
     for (const date in appointmentsPerDay) {
-        // console.log(`Date: ${date} has ${appointmentsPerDay[date]} appointment(s) across all doctors.`);
         document.getElementById("countOfAllAppointmentsByEachDay").innerHTML += `<p style="font-size: large; display: inline-block;">No. of appointments on ${date} --> </p> <p style="font-size: large; display: inline-block; color: #0d6efd;"><b>${appointmentsPerDay[date]}</b></p><br>`;
     }
 }
@@ -415,7 +363,6 @@ function countOfPatientsByGender(){
 
     // Display the number of patients by gender
     for (const gender in genderCount) {
-        // console.log(`There are ${genderCount[gender]} ${gender} patient(s).`);
         document.getElementById("countOfPatientsByGender").innerHTML += `<p style="font-size: large; display: inline-block;">No. of ${gender.charAt(0).toUpperCase() + gender.slice(1)} patients --> </p> <p style="font-size: large; display: inline-block; color: #0d6efd;"><b>${genderCount[gender]}</b></p><br>`;
     }
 }
@@ -430,6 +377,3 @@ countOfAppointmentsByEachDoctor();
 countOfAllAppointmentsByEachDay();
 countOfAllAppointmentsByEachPatient();
 countOfPatientsByGender();
-
-
-// Todo: appointments :)

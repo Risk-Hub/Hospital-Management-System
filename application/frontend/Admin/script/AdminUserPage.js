@@ -1,4 +1,4 @@
-console.log("Admin User Page");
+// console.log("Admin User Page");
 
 const hamBurger = document.querySelector(".toggle-btn");
 hamBurger.addEventListener("click", function () {
@@ -17,7 +17,7 @@ function countOfUsers() {
         count = usersObject.length;
     }
     document.getElementById('headingOnTable').innerHTML = `All Users(${count})`;
-    console.log(users);
+    // console.log(users);
 }
 
 
@@ -33,7 +33,7 @@ function autoPopulateTableData(){
                 Nothing to display here! Please add a new User.            
             </center>
         `;
-        console.log("ok")
+        // console.log("ok")
     }
     else{
         usersObject = JSON.parse(users);
@@ -67,13 +67,9 @@ function addNewUserToList() {
     }
 
     let userId = document.getElementById("userId").value;
-    console.log(userId);
     let userName = document.getElementById("userName").value;
-    console.log(userName);
     let userEmail = document.getElementById("userEmail").value;
-    console.log(userEmail);
     let userContactNumber = document.getElementById("userContactNumber").value;
-    console.log(userContactNumber);
     
     let obj = {
         "id":userId.toLowerCase(),
@@ -82,12 +78,12 @@ function addNewUserToList() {
         "contact":"+91-" + userContactNumber
     };
     if(usersObject.some(user => user.id === obj.id)){
-        console.log("user already exist");        //This needs to be handled. Made for testing purpose.
+        alert("user already exist");        //This needs to be handled. Made for testing purpose.
     }
     else{
         usersObject.push(obj);
     }
-    console.log(usersObject);
+    // console.log(usersObject);
     localStorage.setItem("userList",JSON.stringify(usersObject));
     autoPopulateTableData();        //Auto-populate function's logic need to be revised, displaying incorrect values on table UI.
     countOfUsers();
@@ -171,7 +167,7 @@ function viewUserDetails(id){
 //This function sets the selected user ID to be deleted in a global variable.
 let userIdToBeDeleted = null;
 function confirmDelete(id) {
-    console.log("hello");
+    // console.log("hello");
     userIdToBeDeleted = id;
 }
 

@@ -1,0 +1,9 @@
+{
+  "loginId": "doc123",
+  "userPassword": "securePass123",
+  "staffType": "Doctor",
+  "doctorId": 101,
+  "doctorName": "Dr. John Smith",
+  "doctorContactNo": "9876543210",
+  "doctorEmail": "john.smith@example.com"
+}

@@ -99,28 +99,48 @@ let dummyPatientData = [
         "name":"Example Patient01",
         "contact":"+91-9470271892",
         "age":23,
-        "gender":"male"
+        "gender":"male",
+        "disease": {
+            "name": "FLU",
+            "tests": ["Blood Test", "Influenza Test"],
+            "medicines": ["Paracetamol", "Ibuprofen", "Vitamin C"]
+        }
     },
     {
         "id":"pat02",
         "name":"Example Patient02",
         "contact":"+91-9420032752",
         "age":35,
-        "gender":"female"
+        "gender":"female",
+        "disease": {
+            "name": "BACKPAIN",
+            "tests": ["X-Ray", "MRI"],
+            "medicines": ["Aspirin", "Cyclobenzaprine", "Naproxen"]
+        }
     },
     {
         "id":"pat03",
         "name":"Example Patient03",
         "contact":"+91-9470271892",
         "age":60,
-        "gender":"male"
+        "gender":"male",
+        "disease": {
+            "name": "HEADACHE",
+            "tests": ["CT Scan", "Eye Examination"],
+            "medicines": ["Amoxicillin", "Cetirizine", "Loratadine"]
+        }
     },
     {
         "id":"pat04",
         "name":"Example Patient04",
         "contact":"+91-9420032752",
         "age":45,
-        "gender":"female"
+        "gender":"female",
+        "disease": {
+            "name": "FLU",
+            "tests": ["Blood Test", "Influenza Test"],
+            "medicines": ["Paracetamol", "Ibuprofen", "Vitamin C"]
+        }
     }
 ];
 

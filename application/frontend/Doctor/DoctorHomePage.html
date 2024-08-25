@@ -9,6 +9,12 @@
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link href="https://cdn.lineicons.com/4.0/lineicons.css" rel="stylesheet">
     <link rel="stylesheet" href="./css/styles.css">
+    <script>
+        if (sessionStorage.getItem('isLoggedIn') !== 'true') {
+            alert('Unauthorized access. Please log in.');
+            window.location.href = '../Login/login.html';
+        }
+    </script>
 </head>
 
 <body>
@@ -168,8 +174,8 @@
                     </a>
                 </li>
             </ul>
-            <div class="sidebar-footer">
-                <a href="#" class="sidebar-link">
+            <div class="sidebar-footer sticky-bottom">
+                <a href="../Login/login.html" class="sidebar-link">
                     <i class="lni lni-exit"></i>
                     <span>Logout</span>
                 </a>
@@ -214,30 +220,6 @@
                     </div>
                 </div>
             </main>
-            <footer class="footer">
-                <div class="container-fluid">
-                    <div class="row text-body-secondary">
-                        <div class="col-6 text-start ">
-                            <a class="text-body-secondary" href=" #">
-                                <strong>CodzSwod</strong>
-                            </a>
-                        </div>
-                        <div class="col-6 text-end text-body-secondary d-none d-md-block">
-                            <ul class="list-inline mb-0">
-                                <li class="list-inline-item">
-                                    <a class="text-body-secondary" href="#">Contact</a>
-                                </li>
-                                <li class="list-inline-item">
-                                    <a class="text-body-secondary" href="#">About Us</a>
-                                </li>
-                                <li class="list-inline-item">
-                                    <a class="text-body-secondary" href="#">Terms & Conditions</a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </footer>
         </div>
     </div>
 </body>

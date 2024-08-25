@@ -4,56 +4,90 @@
 # Folder Structure
 The project is organized into the following folders:
 
-hospital-management-system/
-│
-├── Admin/
-│   ├── AdminHomePage.html
-│   ├── AdminDoctorPage.html
-│   ├── AdminAppointmentPage.html
-│   ├── AdminPatientPage.html
-│   ├── AdminUserPage.html
-│   ├── scripts/
-│   │   ├── adminHomePage.js
-│   │   ├── adminDoctorPage.js
-│   │   ├── adminAppointmentPage.js
-│   │   ├── adminPatientPage.js
-│   │   └── adminUserPage.js
-│   └── css/
-│       └── adminStyles.css
-│
-├── Doctor/
-│   ├── DoctorAppointmentView.html
-│   ├── DoctorHomePage.html
-│   ├── DoctorMedicine.html
-│   ├── DoctorSchedule.html
-│   ├── DoctorTest.html
-│   ├── scripts/
-│   │   ├── doctorAppointmentView.js
-│   │   ├── doctorHomePage.js
-│   │   ├── doctorMedicine.js
-│   │   ├── doctorSchedule.js
-│   │   └── doctorTest.js
-│   └── css/
-│       └── doctorStyles.css
-│
-├── User/
-│   ├── AddPatient.html
-│   ├── BookPatient.html
-│   ├── UserHomePage.html
-│   ├── ViewPatientAppointment.html
-│   ├── scripts/
-│   │   ├── addPatient.js
-│   │   ├── bookPatient.js
-│   │   ├── userHomePage.js
-│   │   └── viewPatientAppointment.js
-│   └── css/
-│       └── userStyles.css
-│
-└── Login/
-    ├── Demo.html
-    ├── Login.html
-    ├── script.js
-    └── styles.css
+
+### Admin Directory
+
+The `Admin` directory contains pages and scripts specifically for administrative tasks, including managing doctors, appointments, patients, and user accounts.
+
+- **HTML Files**:
+  - `AdminHomePage.html`: Dashboard for the admin.
+  - `AdminDoctorPage.html`: Manage doctor details.
+  - `AdminAppointmentPage.html`: View and manage appointments.
+  - `AdminPatientPage.html`: Manage patient details.
+  - `AdminUserPage.html`: Manage user accounts.
+  
+- **Scripts**:
+  - **`adminHomePage.js`**: JavaScript file for handling the logic on the admin home page.
+  - **`adminDoctorPage.js`**: Manages doctor-related functionalities such as adding or removing doctors.
+  - **`adminAppointmentPage.js`**: Handles appointment management logic for the admin.
+  - **`adminPatientPage.js`**: Manages patient details and records.
+  - **`adminUserPage.js`**: Manages user accounts and permissions.
+
+- **CSS**:
+  - `adminStyles.css`: Styles specific to the admin pages.
+
+### Doctor Directory
+
+The `Doctor` directory contains pages and scripts for doctors to manage appointments, schedules, medicines, and tests.
+
+- **HTML Files**:
+  - `DoctorAppointmentView.html`: View and manage patient appointments.
+  - `DoctorHomePage.html`: Dashboard for doctors.
+  - `DoctorMedicine.html`: Manage medicines prescribed.
+  - `DoctorSchedule.html`: Manage doctor schedules.
+  - `DoctorTest.html`: Manage tests requested by doctors.
+
+- **Scripts**:
+  - **`doctorAppointmentView.js`**: Handles appointment viewing and management for doctors.
+  - **`doctorHomePage.js`**: JavaScript logic for the doctor's dashboard.
+  - **`doctorMedicine.js`**: Manages the medicine prescriptions and related logic.
+  - **`doctorSchedule.js`**: Handles scheduling logic for doctors, including availability updates.
+  - **`doctorTest.js`**: Manages the ordering and reviewing of tests.
+
+- **CSS**:
+  - `doctorStyles.css`: Styles specific to the doctor pages.
+
+### User Directory
+
+The `User` directory is for functionalities accessible by patients and hospital staff, including booking appointments and viewing patient information.
+
+- **HTML Files**:
+  - `AddPatient.html`: Add new patient information.
+  - `BookPatient.html`: Book appointments for patients.
+  - `UserHomePage.html`: Dashboard for users.
+  - `ViewPatientAppointment.html`: View booked appointments.
+
+- **Scripts**:
+  - **`addPatient.js`**: Handles logic for adding new patients to the system.
+  - **`bookPatient.js`**: Manages the booking of appointments for patients.
+  - **`userHomePage.js`**: JavaScript file for user dashboard functionalities.
+  - **`viewPatientAppointment.js`**: Handles the viewing of patient appointments.
+
+- **CSS**:
+  - `userStyles.css`: Styles specific to user pages.
+
+### Login Directory
+
+The `Login` directory contains the login page and demo for accessing the system.
+
+- **HTML Files**:
+  - `Login.html`: Login page for all users.
+  - `Demo.html`: Demo page for testing purposes.
+
+- **Scripts**:
+  - **`script.js`**: Handles login logic, validation, and session management.
+
+- **CSS**:
+  - `styles.css`: General styles for the login page.
+
+## Getting Started
+
+To get started with the Hospital Management System:
+
+1. **Clone the repository**:
+   ```bash
+   git clone https://github.com/yourusername/hospital-management-system.git
+
 
 
 # Configuration

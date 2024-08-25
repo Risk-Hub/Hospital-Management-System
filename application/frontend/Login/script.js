@@ -64,10 +64,10 @@ function validate(event) {
             window.location.href = "../Admin/AdminHomePage.html";
         }
         else if(user.username.startsWith("doc")){
-            window.location.href = "../Doctor/DoctorHomePage.html";
+            window.location.href = "../Doctor/DoctorAppointmentView.html";
         }
         else if(user.username.startsWith("user")){
-            window.location.href = "../User/UserPage.html"
+            window.location.href = "../User/BookPatient.html"
         }
     }
     else{

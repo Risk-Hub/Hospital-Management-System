@@ -65,6 +65,70 @@ let doctorsObject = [
                 "timeslot":[
                     {"time":"09:00-11:00", "isAvailable": true, "patientId": null},
                     {"time":"11:00-13:00", "isAvailable": true, "patientId": null},
+                    {"time":"14:00-16:00", "isAvailable": false, "patientId": "pat05"}
+                ]
+            }
+        ]
+    },
+    {
+        "id":"doc03",
+        "name":"Example Doctor03",
+        "email":"doc03@hms.com",
+        "contact":"+91-8820749392",
+        "appointment":[
+            {
+                "date":"2024-08-17",
+                "timeslot":[
+                    {"time":"09:00-11:00", "isAvailable": false, "patientId": "pat08"},
+                    {"time":"11:00-13:00", "isAvailable": true, "patientId": null},
+                    {"time":"14:00-16:00", "isAvailable": true, "patientId": null}
+                ]
+            },
+            {
+                "date":"2024-08-18",
+                "timeslot":[
+                    {"time":"09:00-11:00", "isAvailable": true, "patientId": null},
+                    {"time":"11:00-13:00", "isAvailable": true, "patientId": null},
+                    {"time":"14:00-16:00", "isAvailable": true, "patientId": null}
+                ]
+            },
+            {
+                "date":"2024-08-19",
+                "timeslot":[
+                    {"time":"09:00-11:00", "isAvailable": true, "patientId": null},
+                    {"time":"11:00-13:00", "isAvailable": true, "patientId": null},
+                    {"time":"14:00-16:00", "isAvailable": false, "patientId": "pat09"}
+                ]
+            }
+        ]
+    },
+    {
+        "id":"doc04",
+        "name":"Example Doctor04",
+        "email":"doc04@hms.com",
+        "contact":"+91-7891234987",
+        "appointment":[
+            {
+                "date":"2024-08-17",
+                "timeslot":[
+                    {"time":"09:00-11:00", "isAvailable": false, "patientId": "pat10"},
+                    {"time":"11:00-13:00", "isAvailable": false, "patientId": "pat11"},
+                    {"time":"14:00-16:00", "isAvailable": false, "patientId": "pat12"}
+                ]
+            },
+            {
+                "date":"2024-08-18",
+                "timeslot":[
+                    {"time":"09:00-11:00", "isAvailable": true, "patientId": null},
+                    {"time":"11:00-13:00", "isAvailable": false, "patientId": "pat06"},
+                    {"time":"14:00-16:00", "isAvailable": false, "patientId": "pat07"}
+                ]
+            },
+            {
+                "date":"2024-08-19",
+                "timeslot":[
+                    {"time":"09:00-11:00", "isAvailable": true, "patientId": null},
+                    {"time":"11:00-13:00", "isAvailable": true, "patientId": null},
                     {"time":"14:00-16:00", "isAvailable": true, "patientId": null}
                 ]
             }
@@ -90,6 +154,30 @@ let dummyUserData = [
         "name":"Example User03",
         "email":"user03@hms.com",
         "contact":"+91-9420032752"
+    },
+    {
+        "id":"user04",
+        "name":"Example User04",
+        "email":"user04@hms.com",
+        "contact":"+91-941234567"
+    },
+    {
+        "id":"user05",
+        "name":"Example User05",
+        "email":"user05@hms.com",
+        "contact":"+91-8888032752"
+    },
+    {
+        "id":"user06",
+        "name":"Example User06",
+        "email":"user06@hms.com",
+        "contact":"+91-6542232752"
+    },
+    {
+        "id":"user07",
+        "name":"Example User07",
+        "email":"user07@hms.com",
+        "contact":"+91-9420005982"
     }
 ];
 
@@ -140,6 +228,102 @@ let dummyPatientData = [
             "name": "FLU",
             "tests": ["Blood Test", "Influenza Test"],
             "medicines": ["Paracetamol", "Ibuprofen", "Vitamin C"]
+        }
+    },
+    {
+        "id":"pat05",
+        "name":"Example Patient05",
+        "contact":"+91-9471234567",
+        "age":18,
+        "gender":"male",
+        "disease": {
+            "name": "ASTHMA",
+            "tests": ["Pulmonary Function Test", "Chest X-Ray"],
+            "medicines": ["Albuterol", "Montelukast", "Fluticasone"]
+        }
+    },
+    {
+        "id":"pat06",
+        "name":"Example Patient06",
+        "contact":"+91-9420032752",
+        "age":30,
+        "gender":"female",
+        "disease": {
+            "name": "DIABETES",
+            "tests": ["Fasting Blood Sugar", "HbA1c Test"],
+            "medicines": ["Metformin", "Glibenclamide", "Insulin"]
+        }
+    },
+    {
+        "id":"pat07",
+        "name":"Example Patient07",
+        "contact":"+91-9470271111",
+        "age":52,
+        "gender":"male",
+        "disease": {
+            "name": "HYPERTENSION",
+            "tests": ["Blood Pressure Monitoring", "Electrocardiogram (ECG)"],
+            "medicines": ["Lisinopril", "Amlodipine", "Hydrochlorothiazide"]
+        }
+    },
+    {
+        "id":"pat08",
+        "name":"Example Patient08",
+        "contact":"+91-9470222233",
+        "age":40,
+        "gender":"female",
+        "disease": {
+            "name": "MIGRAINE",
+            "tests": ["MRI", "CT Scan"],
+            "medicines": ["Sumatriptan", "Ergotamine", "Topiramate"]
+        }
+    },
+    {
+        "id":"pat09",
+        "name":"Example Patient09",
+        "contact":"+91-9470271892",
+        "age":67,
+        "gender":"male",
+        "disease": {
+            "name": "ARTHRITIS",
+            "tests": ["X-Ray", "MRI"],
+            "medicines": ["Ibuprofen", "Methotrexate", "Hydroxychloroquine"]
+        }
+    },
+    {
+        "id":"pat10",
+        "name":"Example Patient10",
+        "contact":"+91-9420054321",
+        "age":55,
+        "gender":"female",
+        "disease": {
+            "name": "CHRONIC KIDNEY DISEASE",
+            "tests": ["Blood Test", "Urine Test"],
+            "medicines": ["Losartan", "Calcium Carbonate", "Epoetin Alfa"]
+        }
+    },
+    {
+        "id":"pat11",
+        "name":"Example Patient11",
+        "contact":"+91-9470271877",
+        "age":29,
+        "gender":"male",
+        "disease": {
+            "name": "DEPRESSION",
+            "tests": ["Psychological Evaluation"],
+            "medicines": ["Sertraline", "Escitalopram", "Bupropion"]
+        }
+    },
+    {
+        "id":"pat12",
+        "name":"Example Patient12",
+        "contact":"+91-9420011223",
+        "age":75,
+        "gender":"female",
+        "disease": {
+            "name": "OSTEOPOROSIS",
+            "tests": ["Bone Density Test", "X-Ray"],
+            "medicines": ["Alendronate", "Raloxifene", "Calcitonin"]
         }
     }
 ];
@@ -359,7 +543,11 @@ function countOfAllAppointmentsByEachPatient(){
 
     // Display the total number of visits for each patient
     for (const patientId in patientVisits) {
-        document.getElementById("countOfAppointmentsByEachPatient").innerHTML += `<p style="font-size: large; display: inline-block;">${patientId}  --> </p> <p style="font-size: large; display: inline-block; color: #0d6efd;"><b>${patientVisits[patientId]}</b></p><br>`;
+        document.getElementById("countOfAppointmentsByEachPatient").innerHTML += `
+            <div class="col-md-3 mb-3">
+                <p style="font-size: large; display: inline-block;">${patientId} --> </p> 
+                <p style="font-size: large; display: inline-block; color: #0d6efd;"><b>${patientVisits[patientId]}</b></p>
+            </div>`;
     }
 
 }

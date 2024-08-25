@@ -60,7 +60,7 @@ function autoPopulateTableData(){
 //This method adds a new doctor to LocalStorage
 function addNewDoctorToList() {
     let doctors = localStorage.getItem("doctorList");
-    if(doctors == null){
+    if(doctors == null || doctors === "[]"){
         doctorsObject = [];
     }
     else{
@@ -80,13 +80,27 @@ function addNewDoctorToList() {
         "appointment":[
             {
                 "date":"2024-08-17",
-                "timeslot":["09:00","11:00","13:00","14:00"],
-                "isAvailable":[true,true,true,true]
+                "timeslot":[
+                    {"time":"09:00-11:00", "isAvailable": true, "patientId": null},
+                    {"time":"11:00-13:00", "isAvailable": true, "patientId": null},
+                    {"time":"14:00-16:00", "isAvailable": true, "patientId": null}
+                ]
             },
             {
                 "date":"2024-08-18",
-                "timeslot":["09:00","11:00","13:00","14:00"],
-                "isAvailable":[true,true,true,true]
+                "timeslot":[
+                    {"time":"09:00-11:00", "isAvailable": true, "patientId": null},
+                    {"time":"11:00-13:00", "isAvailable": true, "patientId": null},
+                    {"time":"14:00-16:00", "isAvailable": true, "patientId": null}
+                ]
+            },
+            {
+                "date":"2024-08-19",
+                "timeslot":[
+                    {"time":"09:00-11:00", "isAvailable": true, "patientId": null},
+                    {"time":"11:00-13:00", "isAvailable": true, "patientId": null},
+                    {"time":"14:00-16:00", "isAvailable": true, "patientId": null}
+                ]
             }
         ]
     };

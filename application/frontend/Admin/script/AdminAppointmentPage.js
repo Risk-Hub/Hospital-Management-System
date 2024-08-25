@@ -42,6 +42,10 @@ function populateDropdowns() {
         option.value = doctor.id;
         option.textContent = `${doctor.id} - ${doctor.name}`;
         doctorSelect.appendChild(option);
+
+        option = document.createElement('option');
+        option.value = doctor.id;
+        option.textContent = `${doctor.id} - ${doctor.name}`;
         doctorFilterList.appendChild(option);
     });
     
@@ -99,11 +103,11 @@ function populateTimeSlots() {
         const selectedAppointment = selectedDoctor.appointment.find(appointment => appointment.date === selectedDate);
 
         if (selectedAppointment) {
-            const availableTimeSlots = selectedAppointment.timeslot.filter(slot => slot.isAvailable);
+            const availableTimeSlots = selectedAppointment.timeslot.filter(slot => slot.isAvailable === true);
             
-            const option = document.createElement('option');
             if (availableTimeSlots.length > 0) {
                 availableTimeSlots.forEach(slot => {
+                    let option = document.createElement('option');
                     option.value = slot.time;
                     option.textContent = slot.time;
                     timeSlotSelect.appendChild(option);
@@ -173,7 +177,15 @@ function scheduleNewAppointment(e) {
 
 
 function countOfAppointments(){
-    const targetDates = ["2024-08-17", "2024-08-18", "2024-08-19"];
+    let dateFilterList = document.getElementById("dateFilterList").value;
+    let targetDates;
+    if(dateFilterList){
+        targetDates = [dateFilterList];
+    }
+    else{
+        targetDates = ["2024-08-17","2024-08-18","2024-08-19"];
+    }
+
     let doctors = localStorage.getItem("doctorList");
     let patients = localStorage.getItem("patientList");
     let count = 0;
@@ -254,6 +266,7 @@ function showAppointmentsList() {
             }
         });
     });
+    countOfAppointments();
 }
 
 function clearFilters() {

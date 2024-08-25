@@ -18,7 +18,6 @@ Follow these simple steps to submit your first Pull Request (PR):
     cd repo-name
 
 ### 3. Create a New Branch
-    ```bash
     git checkout -b your-branch-name
 
 ### 4. Make Your Changes

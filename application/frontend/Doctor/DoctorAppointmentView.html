@@ -12,6 +12,52 @@
 </head>
 
 <body>
+    <!-- Static Modal: functionality(Add a new doctor)-->
+    <div class="modal fade" id="addNewDoctorModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h1 class="modal-title fs-5" id="staticBackdropLabel">Add a Doctor</h1>
+        </div>
+        <div class="modal-body">
+            <form action="#">
+                <div class="input-group mb-3">
+                    <span class="input-group-text" id="basic-addon1">@</span>
+                    <div class="form-floating">
+                        <input type="text" class="form-control" placeholder="Doctor ID" aria-label="Username" aria-describedby="basic-addon1" id="doctorId">
+                        <label for="floatingInputDisabled" class="required-field">Doctor's ID</label>
+                    </div>
+                </div>
+                <div class="input-group">
+                    <div class="form-floating">
+                        <input type="text" aria-label="Name" class="form-control" placeholder="Doctor's Name" id="doctorName">
+                        <label for="floatingInputDisabled" class="required-field">Name</label>
+                    </div>
+                </div>
+                <div class="input-group mb-3 my-3">
+                    <div class="form-floating">
+                        <input type="text" class="form-control" placeholder="Doctor's Username" aria-label="Recipient's username" aria-describedby="basic-addon2" id="doctorEmail">
+                        <label for="floatingInputDisabled" class="required-field">Email</label>
+                    </div>
+                    <span class="input-group-text" id="basic-addon2">@hms.com</span>
+                </div>
+                <div class="input-group mb-3">
+                    <span class="input-group-text" id="basic-addon3">+91</span>
+                    <div class="form-floating">
+                        <input type="number" class="form-control" placeholder="Contact Number" aria-label="Username" aria-describedby="basic-addon3" id="doctorContactNumber">
+                        <label for="floatingInputDisabled" class="required-field">Contact Number</label>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-primary" onclick="addNewDoctorToList()" data-bs-dismiss="modal">Save</button>
+            <button type="reset" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        </div>
+        </div>
+    </div>
+    </div>
+
 
     <!-- Dismissible Modal: functionality(View a doctor) -->
     <div class="modal fade" id="viewDoctorModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -41,12 +87,7 @@
                 </div>
             </div>
             <ul class="sidebar-nav">
-                <li class="sidebar-item">
-                    <a href="#" class="sidebar-link">
-                        <i class="lni lni-dashboard"></i>
-                        <span>Dashboard</span>
-                    </a>
-                </li>
+                
                 <li class="sidebar-item">
                     <a href="./DoctorAppointmentView.html" class="sidebar-link">
                         <i class="lni lni-first-aid"></i>
@@ -79,8 +120,6 @@
                 </a>
             </div>
         </aside>
-
-        <!-- navbar -->
         <div class="main">
             <nav class="navbar navbar-expand px-4 py-3">
                 <div class="navbar-collapse collapse">
@@ -96,6 +135,10 @@
             <main class="content px-3 py-4">
                 <div class="container-fluid">
                     <div class="mb-3">
+                        <div class="d-flex justify-content-between">
+                            <h3 class="fw-bold fs-4 mb-3">Add New Doctor</h3>
+                            <button type="button" class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#addNewDoctorModal">+ Add New</button>
+                        </div>
                         <h3 class="fw-bold fs-4 my-3" id="headingOnTable"></h3>
                         <div class="row">
                             <div class="col-12" id="tableDiv">
